@@ -204,6 +204,66 @@ App.config([ '$stateProvider', '$urlRouterProvider',
 						templateUrl : 'footer'
 					}
 				}
+			}).state('document', {
+				url : "/document",
+				views : {
+					'header' : {
+						templateUrl : 'home_header',
+						controller : "Home_Header_Controller"
+					},
+					'content' : {
+						templateUrl : 'document',
+						controller : "Document_Controller"
+					},
+					'footer' : {
+						templateUrl : 'footer'
+					}
+				}
+			}).state('shipment_details', {
+				url : "/shipment_details",
+				views : {
+					'header' : {
+						templateUrl : 'home_header',
+						controller : "Home_Header_Controller"
+					},
+					'content' : {
+						templateUrl : 'shipment_details',
+						controller : "Shipment_Details_Controller"
+					},
+					'footer' : {
+						templateUrl : 'footer'
+					}
+				}
+			}).state('draft_details', {
+				url : "/draft_details",
+				views : {
+					'header' : {
+						templateUrl : 'home_header',
+						controller : "Home_Header_Controller"
+					},
+					'content' : {
+						templateUrl : 'draft_details',
+						controller : "Draft_Details_Controller"
+					},
+					'footer' : {
+						templateUrl : 'footer'
+					}
+				}
+			}).state('margin_details', {
+				url : "/margin_details",
+				views : {
+					'header' : {
+						templateUrl : 'home_header',
+						controller : "Home_Header_Controller"
+					},
+					'content' : {
+						templateUrl : 'margin_details',
+						controller : "Margin_Details_Controller"
+					},
+					'footer' : {
+						templateUrl : 'footer'
+					}
+				}
 			}).state('signout', {
 				url : "/signout",
 				views : {

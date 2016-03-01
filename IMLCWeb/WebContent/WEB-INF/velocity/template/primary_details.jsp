@@ -719,6 +719,11 @@
 									style="width: 90px; height: 34px;"
 									ng-click="submitStatusCodeAction('Delete')">Delete</button>
 						</tr>
+						<tr>
+							<td colspan="4" align="right" ng-hide="transactionData == undefined"><a ui-sref="advising_bank" tooltip="Next">
+									<i class="fa fa-arrow-right fa-2x colorWhite"></i>
+							</a>
+						</tr>
 
 					</table></td>
 			</tr>

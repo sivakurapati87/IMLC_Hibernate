@@ -42,10 +42,29 @@ public class TemplateController {// Serves Templates.
 		return "template/advising_bank";
 	}
 
-	// @RequestMapping(value = "/report_Home_header")
-	// public String report_Home_header() {
-	// return "template/report_Home_header";
-	// }
+	// Document
+	@RequestMapping(value = "/document")
+	public String document() {
+		return "template/document";
+	}
+
+	// Shipment Details
+	@RequestMapping(value = "/shipment_details")
+	public String shipment_details() {
+		return "template/shipment_details";
+	}
+
+	// draft_details
+	@RequestMapping(value = "/draft_details")
+	public String draft_details() {
+		return "template/draft_details";
+	}
+
+	// Margin Details
+	@RequestMapping(value = "/margin_details")
+	public String margin_details() {
+		return "template/margin_details";
+	}
 
 	// footer
 	@RequestMapping(value = "/footer")

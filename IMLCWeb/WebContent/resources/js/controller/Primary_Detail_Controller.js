@@ -11,6 +11,7 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	}
 	});
 	
+	
 	//state of the page
 	$scope.state_info_name = "primary_details";
 	//Mode of Transaction
@@ -172,7 +173,7 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	          $scope.getlookupInfo = function() {
 	        	  $scope.showloader();
 	              $http.get(constants.localhost_port+"/"+constants.web_context+'/PrimaryDetailController/init').success(function(data){
-	            	  $scope.lookupbean  = data;//getting all lookups
+	            	  $rootScope.lookupbean  = data;//getting all lookups
 	            	    $scope.hideloader();
 	              });
 	          };
@@ -428,7 +429,7 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	        	  $('.modal-backdrop').remove();
 	        	  $timeout(function() {//wait for some time to redirect to another page
 //	        		  $location.path("/jasper_Text_Report");
-	        		  $state.go('jasper_Text_Report');
+//	        		  $state.go('jasper_Text_Report');
 	        		}, 200);
 	        	
 	          }

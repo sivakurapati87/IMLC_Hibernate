@@ -13,20 +13,28 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.intuiture.imlc.entities.Bank;
+import com.intuiture.imlc.entities.Commodity;
 import com.intuiture.imlc.entities.Counterparty;
 import com.intuiture.imlc.entities.Country;
 import com.intuiture.imlc.entities.Currency;
 import com.intuiture.imlc.entities.Customer;
+import com.intuiture.imlc.entities.Document;
 import com.intuiture.imlc.entities.Global_Parameters;
 import com.intuiture.imlc.entities.ImportLCIssue;
+import com.intuiture.imlc.entities.Incoterms;
 import com.intuiture.imlc.entities.LookUpDetails;
 import com.intuiture.imlc.entities.Swift;
+import com.intuiture.imlc.json.BankJson;
+import com.intuiture.imlc.json.CommodityJson;
 import com.intuiture.imlc.json.CounterpartyJson;
 import com.intuiture.imlc.json.CountryJson;
 import com.intuiture.imlc.json.CurrencyJson;
 import com.intuiture.imlc.json.CustomerJson;
+import com.intuiture.imlc.json.DocumentJson;
 import com.intuiture.imlc.json.GlobalParameterJson;
 import com.intuiture.imlc.json.ImportLCIssueJson;
+import com.intuiture.imlc.json.IncotermsJson;
 import com.intuiture.imlc.json.LookUpDetailJson;
 import com.intuiture.imlc.json.SwiftJson;
 
@@ -111,18 +119,18 @@ public class TransformDomainToJson {
 		return null;
 	}
 
-//	public static String getInputStream(String fileName, String filePath) {
-//		String inputStreamToString = null;
-//		try {
-//			File initialFile = new File(filePath + "\\" + fileName);
-//			InputStream inputStream = new FileInputStream(initialFile);
-//			inputStreamToString = IOUtils.toString(inputStream, "UTF-8");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return inputStreamToString;
-//
-//	}
+	// public static String getInputStream(String fileName, String filePath) {
+	// String inputStreamToString = null;
+	// try {
+	// File initialFile = new File(filePath + "\\" + fileName);
+	// InputStream inputStream = new FileInputStream(initialFile);
+	// inputStreamToString = IOUtils.toString(inputStream, "UTF-8");
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// return inputStreamToString;
+	//
+	// }
 
 	public static String[] getListOfStringsByIntArray(Integer[] listOfIds, Map<Integer, String> idWithDescriptionMap) {
 		String[] strAmenities = null;
@@ -236,6 +244,45 @@ public class TransformDomainToJson {
 		counterpartyJson.setCounterpartyName(counterparty.getCounterpartyName());
 		counterpartyJson.setCounterpartyAddress(counterparty.getCounterpartyAddress());
 		return counterpartyJson;
+	}
+
+	public static IncotermsJson getIncotermsJson(Incoterms incoterms) {
+		IncotermsJson incotermsJson = new IncotermsJson();
+		incotermsJson.setIncotermName(incoterms.getIncotermName());
+		incotermsJson.setIncotermsId(incoterms.getIncotermsId());
+		return incotermsJson;
+	}
+
+	public static BankJson getBankJson(Bank bank) {
+		BankJson bankJson = new BankJson();
+		bankJson.setBankAddress(bank.getBankAddress());
+		bankJson.setBankId(bank.getBankId());
+		bankJson.setBankName(bank.getBankName());
+		bankJson.setbICCode(bank.getbICCode());
+		bankJson.setCorrespondent(bank.getCorrespondent());
+		bankJson.setExportLCExposureLimit(bank.getExportLCExposureLimit());
+		bankJson.setGuaranteeExposureLimit(bank.getGuaranteeExposureLimit());
+		bankJson.setImportLCExposureLimit(bank.getImportLCExposureLimit());
+		bankJson.setMaximum_exposure_allowed(bank.getMaximum_exposure_allowed());
+		bankJson.setNostroAcNum(bank.getNostroAcNum());
+		return bankJson;
+	}
+
+	public static DocumentJson getDocumentJson(Document document) {
+		DocumentJson documentJson = new DocumentJson();
+		documentJson.setDocumentDescription(document.getDocumentDescription());
+		documentJson.setDocumentId(document.getDocumentId());
+		documentJson.setDocumentName(document.getDocumentName());
+		return documentJson;
+	}
+
+	public static CommodityJson getCommodityJson(Commodity commodity) {
+		CommodityJson commodityJson = new CommodityJson();
+		commodityJson.setCommodityCode(commodity.getCommodityCode());
+		commodityJson.setCommodityDescription(commodity.getCommodityDescription());
+		commodityJson.setRestrictedCommodity(commodity.getRestrictedCommodity());
+		commodityJson.setRestrictionType(commodity.getRestrictionType());
+		return commodityJson;
 	}
 
 	public static ImportLCIssueJson getImportLCIssueJson(ImportLCIssue importLCIssue) {

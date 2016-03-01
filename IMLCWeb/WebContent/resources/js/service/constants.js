@@ -17,6 +17,11 @@ Verify : 'Verify',
 Delete : 'Delete',
 Reject : 'Reject',
 
+Advising : 'advising',
+AdvisingThrough : 'advisingThrough',
+Reimbursement : 'reimbursement',
+confirming : 'confirming',
+
 Confirmed : 37,
 Incomplete : 38,
 Verified : 39,
@@ -24,5 +29,9 @@ Rejected : 40,
 Deleted : 41,
 Approved : 42,
 ////controllers
-PrimaryDetailController : 'PrimaryDetailController'
+PrimaryDetailController : 'PrimaryDetailController',
+	BankController : 'BankController',
+	DocumentController : 'DocumentController',
+	CommodityController: 'CommodityController',
+	IncotermsController : 'IncotermsController'
 };

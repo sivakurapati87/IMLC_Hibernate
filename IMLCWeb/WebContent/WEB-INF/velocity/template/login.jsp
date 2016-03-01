@@ -64,11 +64,11 @@
 		<!-- 		<tr> -->
 		<!-- 			<td><object ng-show="content" data="{{content}}" type="application/pdf" style="width: 100%; height: 400px;"></object></td> -->
 		<!-- 		</tr> -->
-		<tr>
+		<!-- <tr>
 			<td><input type="file" id="file" name="file" multiple
 				onchange="angular.element(this).scope().getFileDetails(this)" />
 				<button ng-click="uploadFile()">Upload</button></td>
-		</tr>
+		</tr> -->
 
 		<tr style="height: 15px"></tr>
 		<tr>

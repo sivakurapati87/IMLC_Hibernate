@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout', function($cookies,$http,$scope,$rootScope,$location,$timeout) {
+App.controller('Shipment_Details_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout', function($cookies,$http,$scope,$rootScope,$location,$timeout) {
 	
 	$scope.quantity = 10;//limiting the displaying records in the popup
 	//Disabling the back button
@@ -12,7 +12,7 @@ App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootSc
 	});
 	
 	//state of the page
-	$scope.state_info_name = "advising_bank";
+	$scope.state_info_name = "shipment_details";
 //	$scope.primary_Details_Obj = {};
 	$scope.primary_Details_Obj = $rootScope.transactionData;
 	//For loading symbol
@@ -123,17 +123,20 @@ App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootSc
           };
           
           
-	// getting the all banks          
-	          $scope.getAllBanks = function() {
+	// getting the all lookup       
+	          $scope.getAllLookup = function() {
 	        	  $scope.showloader();
-	              $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.BankController+'/getAllBanks').success(function(data){
-	            	  $scope.bankJsonList  = data;//getting all lookups
-	            	    $scope.hideloader();
+	              $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.IncotermsController+'/getAllIncoterms').success(function(data){
+	            	  $scope.incotermJsonList  = data;//getting all lookups
+	            	  $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.IncotermsController+'/getAllIncoterms').success(function(result){
+		            	  $scope.commodityJsonList  = result;//getting all lookups
+		            	    $scope.hideloader();
+		              });
 	              });
 	          };
 	          
 	      	
-	          $scope.getAllBanks();
+	          $scope.getAllLookup();
 			
 	}]);
 

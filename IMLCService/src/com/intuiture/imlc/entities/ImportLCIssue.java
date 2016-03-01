@@ -58,6 +58,27 @@ public class ImportLCIssue {
 	private String confirmingInstructions;
 	private String confirmingBankdID;
 	private String confirmingBankName;
+	private String documentId;
+	private String documentName;
+	private String documentDescription;
+
+	private Date latestShipmentDate;
+	private String goodsCode;
+	private String goodsDescription;
+	private String incoterms;
+	private String senderRecieverInfo;
+	private Integer shipmentPeriod;
+	private Integer periodOfPresentation;
+	private String addtnlConditnReqd;
+	private Integer numCopies;
+	private String transshipment;
+	private String partialShipment;
+	private String placeOfDestination;
+	private Double freightEndorsement;
+	private String portofLoading;
+	private String portofDelivery;
+	private String placeofTakingCharge;
+	private String instructionsNegotitatingBank;
 
 	@ManyToOne
 	@JoinColumn(name = "statusId", insertable = false, updatable = false)
@@ -68,6 +89,166 @@ public class ImportLCIssue {
 	@ManyToOne
 	@JoinColumn(name = "counterpartyId", insertable = false, updatable = false)
 	private Counterparty counterparty;
+
+	public Date getLatestShipmentDate() {
+		return latestShipmentDate;
+	}
+
+	public void setLatestShipmentDate(Date latestShipmentDate) {
+		this.latestShipmentDate = latestShipmentDate;
+	}
+
+	public String getGoodsCode() {
+		return goodsCode;
+	}
+
+	public void setGoodsCode(String goodsCode) {
+		this.goodsCode = goodsCode;
+	}
+
+	public String getGoodsDescription() {
+		return goodsDescription;
+	}
+
+	public void setGoodsDescription(String goodsDescription) {
+		this.goodsDescription = goodsDescription;
+	}
+
+	public String getIncoterms() {
+		return incoterms;
+	}
+
+	public void setIncoterms(String incoterms) {
+		this.incoterms = incoterms;
+	}
+
+	public String getSenderRecieverInfo() {
+		return senderRecieverInfo;
+	}
+
+	public void setSenderRecieverInfo(String senderRecieverInfo) {
+		this.senderRecieverInfo = senderRecieverInfo;
+	}
+
+	public Integer getShipmentPeriod() {
+		return shipmentPeriod;
+	}
+
+	public void setShipmentPeriod(Integer shipmentPeriod) {
+		this.shipmentPeriod = shipmentPeriod;
+	}
+
+	public Integer getPeriodOfPresentation() {
+		return periodOfPresentation;
+	}
+
+	public void setPeriodOfPresentation(Integer periodOfPresentation) {
+		this.periodOfPresentation = periodOfPresentation;
+	}
+
+	public String getAddtnlConditnReqd() {
+		return addtnlConditnReqd;
+	}
+
+	public void setAddtnlConditnReqd(String addtnlConditnReqd) {
+		this.addtnlConditnReqd = addtnlConditnReqd;
+	}
+
+	public Integer getNumCopies() {
+		return numCopies;
+	}
+
+	public void setNumCopies(Integer numCopies) {
+		this.numCopies = numCopies;
+	}
+
+	public String getTransshipment() {
+		return transshipment;
+	}
+
+	public void setTransshipment(String transshipment) {
+		this.transshipment = transshipment;
+	}
+
+	public String getPartialShipment() {
+		return partialShipment;
+	}
+
+	public void setPartialShipment(String partialShipment) {
+		this.partialShipment = partialShipment;
+	}
+
+	public String getPlaceOfDestination() {
+		return placeOfDestination;
+	}
+
+	public void setPlaceOfDestination(String placeOfDestination) {
+		this.placeOfDestination = placeOfDestination;
+	}
+
+	public Double getFreightEndorsement() {
+		return freightEndorsement;
+	}
+
+	public void setFreightEndorsement(Double freightEndorsement) {
+		this.freightEndorsement = freightEndorsement;
+	}
+
+	public String getPortofLoading() {
+		return portofLoading;
+	}
+
+	public void setPortofLoading(String portofLoading) {
+		this.portofLoading = portofLoading;
+	}
+
+	public String getPortofDelivery() {
+		return portofDelivery;
+	}
+
+	public void setPortofDelivery(String portofDelivery) {
+		this.portofDelivery = portofDelivery;
+	}
+
+	public String getPlaceofTakingCharge() {
+		return placeofTakingCharge;
+	}
+
+	public void setPlaceofTakingCharge(String placeofTakingCharge) {
+		this.placeofTakingCharge = placeofTakingCharge;
+	}
+
+	public String getInstructionsNegotitatingBank() {
+		return instructionsNegotitatingBank;
+	}
+
+	public void setInstructionsNegotitatingBank(String instructionsNegotitatingBank) {
+		this.instructionsNegotitatingBank = instructionsNegotitatingBank;
+	}
+
+	public String getDocumentId() {
+		return documentId;
+	}
+
+	public void setDocumentId(String documentId) {
+		this.documentId = documentId;
+	}
+
+	public String getDocumentName() {
+		return documentName;
+	}
+
+	public void setDocumentName(String documentName) {
+		this.documentName = documentName;
+	}
+
+	public String getDocumentDescription() {
+		return documentDescription;
+	}
+
+	public void setDocumentDescription(String documentDescription) {
+		this.documentDescription = documentDescription;
+	}
 
 	public String getAdvisingBankId() {
 		return advisingBankId;

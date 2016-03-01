@@ -142,6 +142,9 @@
 	color:#94c0d6;
 	cursor:pointer;
 }
+.colorWhite{
+	color: #fff;
+}
 .headerBg{
 	background-image: url('resources/images/bg_2.jpg');
 }

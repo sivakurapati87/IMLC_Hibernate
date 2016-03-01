@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout', function($cookies,$http,$scope,$rootScope,$location,$timeout) {
+App.controller('Margin_Details_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout', function($cookies,$http,$scope,$rootScope,$location,$timeout) {
 	
 	$scope.quantity = 10;//limiting the displaying records in the popup
 	//Disabling the back button
@@ -12,7 +12,7 @@ App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootSc
 	});
 	
 	//state of the page
-	$scope.state_info_name = "advising_bank";
+	$scope.state_info_name = "margin_details";
 //	$scope.primary_Details_Obj = {};
 	$scope.primary_Details_Obj = $rootScope.transactionData;
 	//For loading symbol

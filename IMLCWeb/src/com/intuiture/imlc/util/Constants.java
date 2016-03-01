@@ -21,6 +21,12 @@ public class Constants {
 	public static final String APPLICABLERULE = "APPLICABLERULE";
 	public static final String TRANSCUSTBENIFICIARY = "TRANSCUSTBENIFICIARY";
 	public static final String ISSUEBTNSTATES = "ISSUEBTNSTATES";
+	public static final String CONFIRMINGINSTRUCTIONS = "CONFIRMINGINSTRUCTIONS";
+	public static final String PERMITTEDPROHIBITTED = "PERMITTEDPROHIBITTED";
+	public static final String AVAILABLEBANK = "AVAILABLEBANK";
+	public static final String TENORTYPE = "TENORTYPE";
+	public static final String MARGINTYPE = "MARGINTYPE";
+	
 
 	public static class LookUp {
 		public static final String GETLOOKUPDETAILSBYTYPE = SERVICEURL + "/LookUpController/getAllLookupDetailsByType";

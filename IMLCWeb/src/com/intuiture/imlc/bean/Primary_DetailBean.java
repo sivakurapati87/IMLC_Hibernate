@@ -19,6 +19,51 @@ public class Primary_DetailBean {
 	private List<CounterpartyJson> benificieriesList;
 	private List<LookUpDetailJson> transNr_CustomerOrBenificiaryIdList;
 	private List<LookUpDetailJson> issueRadioBtnStatusList;
+	private List<LookUpDetailJson> confirmingInstructionsList;
+	private List<LookUpDetailJson> permittedProhibittedList;
+	private List<LookUpDetailJson> availableBankList;
+	private List<LookUpDetailJson> tenorTypeList;
+	private List<LookUpDetailJson> marginTypeList;
+
+	public List<LookUpDetailJson> getConfirmingInstructionsList() {
+		return confirmingInstructionsList;
+	}
+
+	public void setConfirmingInstructionsList(List<LookUpDetailJson> confirmingInstructionsList) {
+		this.confirmingInstructionsList = confirmingInstructionsList;
+	}
+
+	public List<LookUpDetailJson> getPermittedProhibittedList() {
+		return permittedProhibittedList;
+	}
+
+	public void setPermittedProhibittedList(List<LookUpDetailJson> permittedProhibittedList) {
+		this.permittedProhibittedList = permittedProhibittedList;
+	}
+
+	public List<LookUpDetailJson> getAvailableBankList() {
+		return availableBankList;
+	}
+
+	public void setAvailableBankList(List<LookUpDetailJson> availableBankList) {
+		this.availableBankList = availableBankList;
+	}
+
+	public List<LookUpDetailJson> getTenorTypeList() {
+		return tenorTypeList;
+	}
+
+	public void setTenorTypeList(List<LookUpDetailJson> tenorTypeList) {
+		this.tenorTypeList = tenorTypeList;
+	}
+
+	public List<LookUpDetailJson> getMarginTypeList() {
+		return marginTypeList;
+	}
+
+	public void setMarginTypeList(List<LookUpDetailJson> marginTypeList) {
+		this.marginTypeList = marginTypeList;
+	}
 
 	public List<GlobalParameterJson> getProductIdsList() {
 		return productIdsList;

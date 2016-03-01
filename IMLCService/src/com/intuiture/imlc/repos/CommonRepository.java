@@ -1,9 +1,14 @@
 package com.intuiture.imlc.repos;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class CommonRepository extends BaseRepository {
+	private final static Logger LOG = Logger.getLogger(CommonRepository.class);
 
 	/*
 	 * This method is to save an object
@@ -19,5 +24,15 @@ public class CommonRepository extends BaseRepository {
 		getSession().merge(object);
 	}
 
-
+	public List<?> getAll(Class<?> clazz) {
+		List<?> list = null;
+		try {
+			Criteria criteria = getSession().createCriteria(clazz);
+			list = criteria.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOG.error("Error at getAll():" + e.getMessage(), e);
+		}
+		return list;
+	}
 }

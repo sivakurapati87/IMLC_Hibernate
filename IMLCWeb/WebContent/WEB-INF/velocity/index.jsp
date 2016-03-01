@@ -34,6 +34,10 @@
 <script src="resources/js/controller/JasperTextReportController.js"></script>
 <script src="resources/js/controller/SwiftController.js"></script>
 <script src="resources/js/controller/Advising_Bank_Controller.js"></script>
+<script src="resources/js/controller/Document_Controller.js"></script>
+<script src="resources/js/controller/Shipment_Details_Controller.js"></script>
+<script src="resources/js/controller/Draft_Details_Controller.js"></script>
+<script src="resources/js/controller/Margin_Details_Controller.js"></script>
 
 <script src="resources/js/service/constants.js"></script>
 <script src="resources/js/service/Global_Parameter_Service.js"></script>

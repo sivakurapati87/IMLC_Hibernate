@@ -29,7 +29,7 @@ public class PrimaryDetailController {
 	@ResponseBody
 	public Primary_DetailBean init() {
 		Primary_DetailBean bean = new Primary_DetailBean();
-		String[] lookUpTypes = { Constants.APPLICABLERULE, Constants.TRANSCUSTBENIFICIARY, Constants.ISSUEBTNSTATES };
+		String[] lookUpTypes = { Constants.APPLICABLERULE, Constants.TRANSCUSTBENIFICIARY, Constants.ISSUEBTNSTATES, Constants.CONFIRMINGINSTRUCTIONS, Constants.PERMITTEDPROHIBITTED, Constants.AVAILABLEBANK, Constants.TENORTYPE, Constants.MARGINTYPE };
 		List<String> typesList = Arrays.asList(lookUpTypes);
 		Map<String, List<LookUpDetailJson>> lookUpMap = CommonUtil.getLookupDetailsListByTypeList(Constants.LookUp.GETLOOKUPDETAILSBYTYPELIST, typesList);
 		// bean.setTypeOfLCList(lookUpMap.get(Constants.TEMPLATE));
@@ -41,6 +41,11 @@ public class PrimaryDetailController {
 		bean.setIssueRadioBtnStatusList(lookUpMap.get(Constants.ISSUEBTNSTATES));
 		bean.setCountryList(CommonUtil.getAllCountries());
 		bean.setLcAmountList(CommonUtil.getAllCurrency());
+		bean.setConfirmingInstructionsList(lookUpMap.get(Constants.CONFIRMINGINSTRUCTIONS));
+		bean.setPermittedProhibittedList(lookUpMap.get(Constants.PERMITTEDPROHIBITTED));
+		bean.setAvailableBankList(lookUpMap.get(Constants.AVAILABLEBANK));
+		bean.setMarginTypeList(lookUpMap.get(Constants.MARGINTYPE));
+		bean.setTenorTypeList(lookUpMap.get(Constants.TENORTYPE));
 		return bean;
 	}
 
