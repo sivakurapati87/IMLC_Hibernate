@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('Document_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout', function($cookies,$http,$scope,$rootScope,$location,$timeout) {
+App.controller('Document_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout','$state', function($cookies,$http,$scope,$rootScope,$location,$timeout,$state) {
 	
 	$scope.quantity = 10;//limiting the displaying records in the popup
 	//Disabling the back button
@@ -13,8 +13,8 @@ App.controller('Document_Controller', ['$cookies','$http','$scope','$rootScope',
 	
 	//state of the page
 	$scope.state_info_name = "document";
-	$scope.primary_Details_Obj = {};
-//	$scope.primary_Details_Obj = $rootScope.transactionData;
+//	$rootScope.transactionData = {};
+//	$rootScope.transactionData = $rootScope.transactionData;
 	//For loading symbol
 	 	$scope.loader = {
 		      loading: false,
@@ -30,10 +30,10 @@ App.controller('Document_Controller', ['$cookies','$http','$scope','$rootScope',
 	    //This function is to get the selected document from auto population
         $scope.selectedDocumentIdAction = function(selected) {
             if (selected && selected.title) {
-          	  $scope.primary_Details_Obj.documentId = selected.title;
-          	  $scope.getDocumentJsonById($scope.primary_Details_Obj.documentId);
-          	$scope.primary_Details_Obj.documentName = $scope.tempDocumentJson.documentName;
-          	$scope.primary_Details_Obj.documentDescription = $scope.tempDocumentJson.documentDescription;
+          	  $rootScope.transactionData.documentId = selected.title;
+          	  $scope.getDocumentJsonById($rootScope.transactionData.documentId);
+          	$rootScope.transactionData.documentName = $scope.tempDocumentJson.documentName;
+          	$rootScope.transactionData.documentDescription = $scope.tempDocumentJson.documentDescription;
             } else {
               console.log('cleared');
             }
@@ -42,11 +42,11 @@ App.controller('Document_Controller', ['$cookies','$http','$scope','$rootScope',
           //onSelect bank from the Document table in the popup
           $scope.onselectDocumentId = function(document) {
         	  $('#documentPopupId').modal('hide');
-        		  $scope.primary_Details_Obj.documentId = document.documentId;
+        		  $rootScope.transactionData.documentId = document.documentId;
         		  $scope.document = document;
         		  $scope.$broadcast('angucomplete-alt:changeInput', 'documentId', $scope.document);
-        			$scope.primary_Details_Obj.documentName = document.documentName;
-                  	$scope.primary_Details_Obj.documentDescription = document.documentDescription;
+        			$rootScope.transactionData.documentName = document.documentName;
+                  	$rootScope.transactionData.documentDescription = document.documentDescription;
           };
           
           //This is to get the document details
@@ -60,18 +60,26 @@ App.controller('Document_Controller', ['$cookies','$http','$scope','$rootScope',
 		           	     });
           };
           
+          //Save the record     
+          $scope.saveOrUpdate = function() {
+        	  $state.go('shipment_details');
+          };
           
-	// getting the all banks          
-	          $scope.getAllDocuments = function() {
+          // getting the all documents          
+	          $scope.init = function() {
 	        	  $scope.showloader();
 	              $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.DocumentController+'/getAllDocuments').success(function(data){
 	            	  $scope.documentJsonList  = data;//getting all documents
+	            	  if($rootScope.transactionData.documentId){
+	            		  $scope.getDocumentJsonById($rootScope.transactionData.documentId);
+	            		  $scope.$broadcast('angucomplete-alt:changeInput', 'documentId', $scope.tempDocumentJson);
+	            	  }
 	            	    $scope.hideloader();
 	              });
 	          };
 	          
 	      	
-	          $scope.getAllDocuments();
+	          $scope.init();
 			
 	}]);
 

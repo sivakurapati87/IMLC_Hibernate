@@ -101,8 +101,8 @@ alert($scope.files);
     			     .success(function (response) {
     			        var file = new Blob([(response)], {type: 'application/pdf'});
     			        $scope.content = URL.createObjectURL(file);
-    			        $scope.content = $sce.trustAsResourceUrl(fileURL);
+//    			        $scope.content = $sce.trustAsResourceUrl(fileURL);
     			   });
        };
-       $scope.preview();
+//       $scope.preview();
 }]);

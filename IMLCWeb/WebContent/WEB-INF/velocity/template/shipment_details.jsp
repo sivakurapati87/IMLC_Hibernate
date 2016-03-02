@@ -32,12 +32,14 @@
 									<tr>
 										<td width="50%"><div class="input-group width90">
 												<input type="text" class="form-control"
+													ng-disabled="isDisabled"
 													placeholder="Latest Shipment Date(dd-MMM-yyyy)"
-													ng-model="primary_Details_Obj.strLatestShipmentDate"
+													ng-model="transactionData.strLatestShipmentDate"
 													datepicker-popup="dd-MMM-yyyy" is-open="issueOpened"
 													ng-click="issueOpened=true"> <span
 													class="input-group-btn">
 													<button type="button" class="btn btn-default"
+														ng-disabled="isDisabled"
 														ng-click="issueOpened=true;$event.stopPropagation();">
 														<i class="glyphicon glyphicon-calendar"></i>
 													</button>
@@ -76,18 +78,20 @@
 																	class="glyphicon glyphicon-asterisk "></i></label>
 																<div angucomplete-alt class="lable16"
 																	placeholder="Goods Code" pause="100"
-																	selected-object="selectedBenificieryIdAction"
+																	selected-object="selectedCommodityCodeAction"
 																	local-data="commodityJsonList"
+																	disable-input="isDisabled"
 																	search-fields="commodityCode" id="commodityCodeId"
-																	initial-value="counterParty"
-																	title-field="commodityCode" minlength="2"
-																	input-class="search-control" match-class="highlight"></div>
+																	initial-value="commodity" title-field="commodityCode"
+																	minlength="2" input-class="search-control"
+																	match-class="highlight"></div>
 
 															</div></td>
 														<td>
 															<button type="button" style="height: 34px; width: 40px;"
 																class="btn btn-info" data-toggle="modal"
-																data-target="#counterpartyListId">
+																ng-disabled="isDisabled"
+																data-target="#CommodityListPopupId">
 																<i class="glyphicon glyphicon-search"></i>
 															</button>
 														</td>
@@ -100,7 +104,7 @@
 												style="resize: none;"
 												class="form-control ng-pristine  ng-valid ng-valid-required width90"
 												placeholder="Goods Description" readonly="readonly"
-												ng-model="primary_Details_Obj.goodsDescription"></textarea></td>
+												ng-model="transactionData.goodsDescription"></textarea></td>
 									</tr>
 									<tr style="height: 20px"></tr>
 								</table>
@@ -128,18 +132,19 @@
 																	class="glyphicon glyphicon-asterisk "></i></label>
 																<div angucomplete-alt class="lable16"
 																	placeholder="Incoterms" pause="100"
-																	selected-object="selectedBenificieryIdAction"
-																	local-data="lookupbean.benificieriesList"
-																	search-fields="counterpartyId" id="counterpartyId"
-																	initial-value="counterParty" disable-input="isDisabled"
-																	title-field="counterpartyId" minlength="2"
+																	selected-object="selectedIncotermIdAction"
+																	local-data="incotermJsonList"
+																	disable-input="isDisabled" search-fields="incotermsId"
+																	id="incotermsId" initial-value="incoterm"
+																	title-field="incotermsId" minlength="2"
 																	input-class="search-control" match-class="highlight"></div>
 
 															</div></td>
 														<td>
 															<button type="button" style="height: 34px; width: 40px;"
 																class="btn btn-info" data-toggle="modal"
-																data-target="#counterpartyListId">
+																ng-disabled="isDisabled"
+																data-target="#IncotermListPopupId">
 																<i class="glyphicon glyphicon-search"></i>
 															</button>
 														</td>
@@ -175,10 +180,10 @@
 										<td width="50%"><div class="input-group width90">
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
-													placeholder="Sender Reciever Info"
+													placeholder="Sender Reciever Info" ng-disabled="isDisabled"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-alphabet
-													ng-model="primary_Details_Obj.senderRecieverInfo" name="">
+													ng-model="transactionData.senderRecieverInfo" name="">
 											</div></td>
 										<td align="right"></td>
 									</tr>
@@ -204,20 +209,20 @@
 									</tr>
 									<tr>
 										<td width="50%"><div class="input-group width90">
-												<label class="input-group-addon" for="productId"><i
-													class="glyphicon glyphicon-asterisk "></i></label><input
-													placeholder="Shipment Period"
+												<input placeholder="Shipment Period"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-number
-													ng-model="primary_Details_Obj.shipmentPeriod" name="">
+													ng-disabled="isDisabled"
+													ng-model="transactionData.shipmentPeriod" name="">
 											</div></td>
 										<td align="right"><div class="input-group width90">
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
-													placeholder="Period of Presentation"
+													placeholder="Period of Presentation" readonly="readonly"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-number
-													ng-model="primary_Details_Obj.periodOfPresentation" name="">
+													ng-disabled="isDisabled"
+													ng-model="transactionData.periodOfPresentation" name="">
 											</div></td>
 									</tr>
 									<tr style="height: 20px"></tr>
@@ -237,15 +242,16 @@
 													placeholder="Additional Condition Required"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-alphabet
-													ng-model="primary_Details_Obj.addtnlConditnReqd" name="">
+													ng-disabled="isDisabled"
+													ng-model="transactionData.addtnlConditnReqd" name="">
 											</div></td>
 										<td align="right"><div class="input-group width90">
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
-													placeholder="Number of Copies"
+													placeholder="Number of Copies" ng-disabled="isDisabled"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-number
-													ng-model="primary_Details_Obj.numCopies" name="">
+													ng-model="transactionData.numCopies" name="">
 											</div></td>
 									</tr>
 
@@ -273,7 +279,8 @@
 											<div class="input-group width90">
 												<select
 													class="form-control ng-pristine ng-valid ng-valid-required ng-touched"
-													required ng-model="primary_Details_Obj.transshipment"
+													required ng-model="transactionData.transshipment"
+													ng-disabled="isDisabled"
 													ng-options="lookup.description as lookup.description for lookup in  lookupbean.permittedProhibittedList">
 													<option value="" disabled selected>Transition
 														Shipment</option>
@@ -283,7 +290,8 @@
 										<td align="right"><div class="input-group width90">
 												<select
 													class="form-control ng-pristine ng-valid ng-valid-required ng-touched"
-													required ng-model="primary_Details_Obj.partialShipment"
+													required ng-model="transactionData.partialShipment"
+													ng-disabled="isDisabled"
 													ng-options="lookup.description as lookup.description for lookup in  lookupbean.permittedProhibittedList">
 													<option value="" disabled selected>Partial
 														Shipment</option>
@@ -312,18 +320,18 @@
 										<td width="50%"><div class="input-group width90">
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
-													placeholder="Place of Destination"
+													placeholder="Place of Destination" ng-disabled="isDisabled"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-alphabet
-													ng-model="primary_Details_Obj.placeOfDestination" name="">
+													ng-model="transactionData.placeOfDestination" name="">
 											</div></td>
 										<td align="right"><div class="input-group width90">
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
-													placeholder="Freight Endorsement"
+													placeholder="Freight Endorsement" ng-disabled="isDisabled"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-number
-													ng-model="primary_Details_Obj.freightEndorsement" name="">
+													ng-model="transactionData.freightEndorsement" name="">
 											</div></td>
 									</tr>
 
@@ -350,18 +358,18 @@
 										<td width="50%"><div class="input-group width90">
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
-													placeholder="Port of Loading"
+													placeholder="Port of Loading" ng-disabled="isDisabled"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-alphabet
-													ng-model="primary_Details_Obj.portofLoading" name="">
+													ng-model="transactionData.portofLoading" name="">
 											</div></td>
 										<td align="right"><div class="input-group width90">
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
-													placeholder="City of Expiry"
+													placeholder="City of Expiry" ng-disabled="isDisabled"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-alphabet
-													ng-model="primary_Details_Obj.portofDelivery" name="">
+													ng-model="transactionData.portofDelivery" name="">
 											</div></td>
 									</tr>
 
@@ -386,9 +394,10 @@
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
 													placeholder="Place of Taking Charge"
+													ng-disabled="isDisabled"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-alphabet
-													ng-model="primary_Details_Obj.placeofTakingCharge" name="">
+													ng-model="transactionData.placeofTakingCharge" name="">
 											</div></td>
 										<td align="right"></td>
 									</tr>
@@ -414,9 +423,10 @@
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
 													placeholder="Instruction Negotiating Bank"
+													ng-disabled="isDisabled"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-alphabet
-													ng-model="primary_Details_Obj.instructionsNegotitatingBank"
+													ng-model="transactionData.instructionsNegotitatingBank"
 													name="">
 											</div></td>
 										<td align="right"></td>
@@ -430,14 +440,83 @@
 
 						<tr>
 							<td colspan="4" align="right"
-								ng-hide="transactionData == undefined"><a
-								ui-sref="draft_details" tooltip="Next"> <i
-									class="fa fa-arrow-right fa-2x colorWhite"></i>
-							</a>
+								ng-hide="transactionData == undefined">
+								<button type="submit"
+									class="btn btn-info fa fa-arrow-right fa-2x"
+									style="width: 90px; height: 34px;"></button>
 						</tr>
-
 					</table></td>
 			</tr>
 		</table>
 	</form>
+</div>
+<div class="container">
+	<div class="modal fade" id="IncotermListPopupId" role="dialog">
+		<div class="modal-dialog" align="center">
+
+			<!-- Modal content-->
+			<div class="modal-content" style="width: 360px;">
+				<div class="modal-body">
+					<table border="0" width="100%"
+						class="table table-hover table table-bordered">
+						<tr>
+							<th></th>
+							<th>Incoterm id</th>
+							<th>Incoterm name</th>
+						</tr>
+						<tr>
+							<td></td>
+							<td align="center"><input ng-model="search.incotermsId"
+								class="width90"></td>
+							<td align="center"><input ng-model="search.incotermName"
+								class="width90"></td>
+						</tr>
+						<tr
+							ng-repeat="incoterm in incotermJsonList | filter:{incotermsId:search.incotermsId,incotermName:search.incotermName}"
+							ng-class-odd="'odd'" ng-class-even="'even'">
+							<td><input type="radio" name="groupName"
+								ng-click="onselectIncotermId(incoterm)" /></td>
+							<td>{{incoterm.incotermsId}}</td>
+							<td>{{incoterm.incotermName}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="modal fade" id="CommodityListPopupId" role="dialog">
+		<div class="modal-dialog" align="center">
+
+			<!-- Modal content-->
+			<div class="modal-content" style="width: 360px;">
+				<div class="modal-body">
+					<table border="0" width="100%"
+						class="table table-hover table table-bordered">
+						<tr>
+							<th></th>
+							<th>commodity Code</th>
+							<th>commodity Description</th>
+						</tr>
+						<tr>
+							<td></td>
+							<td align="center"><input ng-model="search.commodityCode"
+								class="width90"></td>
+							<td align="center"><input
+								ng-model="search.commodityDescription" class="width90"></td>
+						</tr>
+						<tr
+							ng-repeat="commodity in commodityJsonList | filter:{commodityCode:search.commodityCode,commodityDescription:search.commodityDescription}"
+							ng-class-odd="'odd'" ng-class-even="'even'">
+							<td><input type="radio" name="groupName"
+								ng-click="onselectCommodityId(commodity)" /></td>
+							<td>{{commodity.commodityCode}}</td>
+							<td>{{commodity.commodityDescription}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
 </div>

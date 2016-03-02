@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout', function($cookies,$http,$scope,$rootScope,$location,$timeout) {
+App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout','$state', function($cookies,$http,$scope,$rootScope,$location,$timeout,$state) {
 	
 	$scope.quantity = 10;//limiting the displaying records in the popup
 	//Disabling the back button
@@ -13,8 +13,8 @@ App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootSc
 	
 	//state of the page
 	$scope.state_info_name = "advising_bank";
-//	$scope.primary_Details_Obj = {};
-	$scope.primary_Details_Obj = $rootScope.transactionData;
+//	$rootScope.transactionData = {};
+//	$rootScope.transactionData = $rootScope.transactionData;
 	//For loading symbol
 	 	$scope.loader = {
 		      loading: false,
@@ -30,10 +30,10 @@ App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootSc
 	    //This function is to get the selected advising bank from auto population
         $scope.selectedAdvisingIdAction = function(selected) {
             if (selected && selected.title) {
-          	  $scope.primary_Details_Obj.advisingBankId = selected.title;
-          	  $scope.getBankJsonById($scope.primary_Details_Obj.advisingBankId);
-          	$scope.primary_Details_Obj.advisingBankName = $scope.tempBankJson.bankName;
-          	$scope.primary_Details_Obj.advisingBankAddress = $scope.tempBankJson.bankAddress;
+          	  $rootScope.transactionData.advisingBankId = selected.title;
+          	  $scope.getBankJsonById($rootScope.transactionData.advisingBankId);
+          	$rootScope.transactionData.advisingBankName = $scope.tempBankJson.bankName;
+          	$rootScope.transactionData.advisingBankAddress = $scope.tempBankJson.bankAddress;
             } else {
               console.log('cleared');
             }
@@ -42,10 +42,10 @@ App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootSc
           //This function is to get the selected advising Through bank from auto population
           $scope.selectedAdvisingThroughIdAction = function(selected) {
               if (selected && selected.title) {
-            	  $scope.primary_Details_Obj.adviseThroughBankID = selected.title;
-            	  $scope.getBankJsonById($scope.primary_Details_Obj.adviseThroughBankID);
-            	$scope.primary_Details_Obj.adviseThroughBankName = $scope.tempBankJson.bankName;
-            	$scope.primary_Details_Obj.adviseThroughBankAddress = $scope.tempBankJson.bankAddress;
+            	  $rootScope.transactionData.adviseThroughBankID = selected.title;
+            	  $scope.getBankJsonById($rootScope.transactionData.adviseThroughBankID);
+            	$rootScope.transactionData.adviseThroughBankName = $scope.tempBankJson.bankName;
+            	$rootScope.transactionData.adviseThroughBankAddress = $scope.tempBankJson.bankAddress;
               } else {
                 console.log('cleared');
               }
@@ -54,10 +54,10 @@ App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootSc
             //This function is to get the selected Reimbursement bank from auto population
             $scope.selectedReimbursementBankIdAction = function(selected) {
                 if (selected && selected.title) {
-              	  $scope.primary_Details_Obj.reimbursementBankID = selected.title;
-              	  $scope.getBankJsonById($scope.primary_Details_Obj.reimbursementBankID);
-              	$scope.primary_Details_Obj.remibursementBankName = $scope.tempBankJson.bankName;
-              	$scope.primary_Details_Obj.remibursementBankAddress = $scope.tempBankJson.bankAddress;
+              	  $rootScope.transactionData.reimbursementBankID = selected.title;
+              	  $scope.getBankJsonById($rootScope.transactionData.reimbursementBankID);
+              	$rootScope.transactionData.remibursementBankName = $scope.tempBankJson.bankName;
+              	$rootScope.transactionData.remibursementBankAddress = $scope.tempBankJson.bankAddress;
                 } else {
                   console.log('cleared');
                 }
@@ -65,9 +65,9 @@ App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootSc
               //This function is to get the selected Reimbursement bank from auto population
               $scope.selectedConfirmingBankIdAction = function(selected) {
                   if (selected && selected.title) {
-                	  $scope.primary_Details_Obj.confirmingBankdID = selected.title;
-                	  $scope.getBankJsonById($scope.primary_Details_Obj.confirmingBankdID);
-                	$scope.primary_Details_Obj.confirmingBankName = $scope.tempBankJson.bankName;
+                	  $rootScope.transactionData.confirmingBankdID = selected.title;
+                	  $scope.getBankJsonById($rootScope.transactionData.confirmingBankdID);
+                	$rootScope.transactionData.confirmingBankName = $scope.tempBankJson.bankName;
                   } else {
                     console.log('cleared');
                   }
@@ -82,38 +82,38 @@ App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootSc
           $scope.onselectBankId = function(bank) {
         	  $('#bankListPopupId').modal('hide');
         	  if($scope.popupName == constants.Advising){
-        		  $scope.primary_Details_Obj.advisingBankId = bank.bankId;
+        		  $rootScope.transactionData.advisingBankId = bank.bankId;
         		  $scope.advisingBank = bank;
         		  $scope.$broadcast('angucomplete-alt:changeInput', 'advisingBankId', $scope.advisingBank);
-        			$scope.primary_Details_Obj.advisingBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.advisingBankAddress = bank.bankAddress;
+        			$rootScope.transactionData.advisingBankName = bank.bankName;
+                  	$rootScope.transactionData.advisingBankAddress = bank.bankAddress;
         	  }
         	  if($scope.popupName == constants.AdvisingThrough){
-        		  $scope.primary_Details_Obj.adviseThroughBankID = bank.bankId;
+        		  $rootScope.transactionData.adviseThroughBankID = bank.bankId;
         		  $scope.advisingThroughBank = bank;
         		  $scope.$broadcast('angucomplete-alt:changeInput', 'adviseThroughBankID', $scope.advisingThroughBank);
-        			$scope.primary_Details_Obj.adviseThroughBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.adviseThroughBankAddress = bank.bankAddress;
+        			$rootScope.transactionData.adviseThroughBankName = bank.bankName;
+                  	$rootScope.transactionData.adviseThroughBankAddress = bank.bankAddress;
         	  }
         	  if($scope.popupName == constants.Reimbursement){
-        		  $scope.primary_Details_Obj.reimbursementBankID = bank.bankId;
+        		  $rootScope.transactionData.reimbursementBankID = bank.bankId;
         		  $scope.reimbursementBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'reimbursementBankId', $scope.reimbursementBank);
-        			$scope.primary_Details_Obj.remibursementBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.remibursementBankAddress = bank.bankAddress;
+        		  $scope.$broadcast('angucomplete-alt:changeInput', 'reimbursementBankID', $scope.reimbursementBank);
+        			$rootScope.transactionData.remibursementBankName = bank.bankName;
+                  	$rootScope.transactionData.remibursementBankAddress = bank.bankAddress;
         	  }
         	  if($scope.popupName == constants.confirming){
-        		  $scope.primary_Details_Obj.confirmingBankdID = bank.bankId;
+        		  $rootScope.transactionData.confirmingBankdID = bank.bankId;
         		  $scope.confirmingBank = bank;
         		  $scope.$broadcast('angucomplete-alt:changeInput', 'confirmingBankID', $scope.confirmingBank);
-        			$scope.primary_Details_Obj.confirmingBankName = bank.bankName;
+        			$rootScope.transactionData.confirmingBankName = bank.bankName;
         	  }
             	  
           };
           
           //This is to get the bank details
           $scope.getBankJsonById = function(id) {
-        		  angular.forEach($scope.bankJsonList, function(obj, key)
+        		  angular.forEach($rootScope.bankJsonList, function(obj, key)
         				  {
 		           	   		if(obj.bankId == id)
 		           	   			{
@@ -122,18 +122,40 @@ App.controller('Advising_Bank_Controller', ['$cookies','$http','$scope','$rootSc
 		           	     });
           };
           
+          //Save the record     
+          $scope.saveOrUpdate = function() {
+        	  $state.go('document');
+          };
           
 	// getting the all banks          
-	          $scope.getAllBanks = function() {
+	          $scope.init = function() {
 	        	  $scope.showloader();
 	              $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.BankController+'/getAllBanks').success(function(data){
-	            	  $scope.bankJsonList  = data;//getting all lookups
+	            	  $rootScope.bankJsonList  = data;//getting all lookups
+	            	  if($rootScope.transactionData.importLCIssueId){
+	            		  if($rootScope.transactionData.advisingBankId){
+	            			  $scope.getBankJsonById($rootScope.transactionData.advisingBankId);
+	            		  $scope.$broadcast('angucomplete-alt:changeInput', 'advisingBankId', $scope.tempBankJson);
+	            		  }
+	            		  if($rootScope.transactionData.adviseThroughBankID){
+	            			  $scope.getBankJsonById($rootScope.transactionData.adviseThroughBankID);
+	            		  $scope.$broadcast('angucomplete-alt:changeInput', 'adviseThroughBankID', $scope.tempBankJson);
+	            		  }
+	            		  if($rootScope.transactionData.reimbursementBankID){
+	            			  $scope.getBankJsonById($rootScope.transactionData.reimbursementBankID);
+	            		  $scope.$broadcast('angucomplete-alt:changeInput', 'reimbursementBankID', $scope.tempBankJson);
+	            		  }
+	            		  if($rootScope.transactionData.confirmingBankdID){
+	            			  $scope.getBankJsonById($rootScope.transactionData.confirmingBankdID);
+	            		  $scope.$broadcast('angucomplete-alt:changeInput', 'confirmingBankID', $scope.tempBankJson);
+	            		  }
+	            	  }
 	            	    $scope.hideloader();
 	              });
 	          };
 	          
 	      	
-	          $scope.getAllBanks();
+	          $scope.init();
 			
 	}]);
 

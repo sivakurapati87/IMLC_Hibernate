@@ -35,4 +35,8 @@ public class CommonRepository extends BaseRepository {
 		}
 		return list;
 	}
+
+	public Object getObjectById(Integer id, Class<?> clazz) {
+		return getSession().get(clazz, id);
+	}
 }

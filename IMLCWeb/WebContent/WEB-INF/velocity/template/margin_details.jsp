@@ -31,15 +31,11 @@
 								<tr>
 									<td width="50%"><div class="input-group width90">
 											<label class="input-group-addon"><i
-												class="glyphicon glyphicon-asterisk "></i></label><select
+												class="glyphicon glyphicon-asterisk "></i></label><select ng-disabled="isDisabled"
 												class="form-control ng-pristine ng-valid ng-valid-required ng-touched"
-												required ng-change="value()"
-												ng-model="primary_Details_Obj.confirmingInstructions">
+												required ng-model="transactionData.marginType"
+												ng-options="lookup.description as lookup.description for lookup in  lookupbean.marginTypeList">
 												<option value="" disabled selected>Margin Type</option>
-												<option value="">No Margin</option>
-												<option value="AnyBank">Lien</option>
-												<option value="SelectBank">Customer Deposit</option>
-												<option value="SelectBank">Internal Bank A/c</option>
 											</select>
 										</div></td>
 									<td align="right"></td>
@@ -49,7 +45,8 @@
 						</td>
 					</tr>
 
-					<tr class="border1px">
+					<tr class="border1px"
+						ng-hide="transactionData.marginType == 'No Margin'">
 						<td colspan="2" align="center">
 							<table style="width: 80%" border="0">
 
@@ -67,18 +64,20 @@
 									<td width="50%"><div class="input-group width90">
 											<label class="input-group-addon" for="productId"><i
 												class="glyphicon glyphicon-asterisk "></i></label><input
-												placeholder="Debit Account Number" ng-disabled="isDisabled"
+												placeholder="Debit Account Number" 
+												ng-disabled="(transactionData.marginType == 'No Margin' || isDisabled)?true:false"
 												class="form-control ng-pristine  ng-valid ng-valid-required"
 												type="text" required="" valid-alphabet
-												ng-model="primary_Details_Obj.city_Of_Expiry" name="">
+												ng-model="transactionData.debitAccountNum" name="">
 										</div></td>
 									<td align="right"><div class="input-group width90">
 											<label class="input-group-addon" for="productId"><i
 												class="glyphicon glyphicon-asterisk "></i></label><input
-												placeholder="Credit Account Number" ng-disabled="isDisabled"
+												placeholder="Credit Account Number"
+												ng-disabled="(transactionData.marginType == 'No Margin' || isDisabled)?true:false"
 												class="form-control ng-pristine  ng-valid ng-valid-required"
 												type="text" required="" valid-alphabet
-												ng-model="primary_Details_Obj.city_Of_Expiry" name="">
+												ng-model="transactionData.creditAccountNum" name="">
 										</div></td>
 								</tr>
 
@@ -86,7 +85,8 @@
 							</table>
 						</td>
 					</tr>
-					<tr class="border1px">
+					<tr class="border1px"
+						ng-show="transactionData.marginType != 'No Margin'">
 						<td colspan="2" align="center">
 							<table style="width: 80%" border="0">
 
@@ -104,18 +104,20 @@
 									<td width="50%"><div class="input-group width90">
 											<label class="input-group-addon" for="productId"><i
 												class="glyphicon glyphicon-asterisk "></i></label><input
-												placeholder="Margin Percent" ng-disabled="isDisabled"
+												placeholder="Margin Percent"
+												ng-disabled="(transactionData.marginType == 'No Margin' || isDisabled)?true:false"
 												class="form-control ng-pristine  ng-valid ng-valid-required"
-												type="text" required="" valid-alphabet
-												ng-model="primary_Details_Obj.city_Of_Expiry" name="">
+												type="text" required="" valid-number
+												ng-model="transactionData.marginPerCent" name="">
 										</div></td>
 									<td align="right"><div class="input-group width90">
 											<label class="input-group-addon" for="productId"><i
 												class="glyphicon glyphicon-asterisk "></i></label><input
-												placeholder="Margin Amount" ng-disabled="isDisabled"
+												placeholder="Margin Amount"
+												ng-disabled="(transactionData.marginType == 'No Margin' || isDisabled)?true:false"
 												class="form-control ng-pristine  ng-valid ng-valid-required"
-												type="text" required="" valid-alphabet
-												ng-model="primary_Details_Obj.city_Of_Expiry" name="">
+												type="text" required="" valid-number
+												ng-model="transactionData.marginAmt" name="">
 										</div></td>
 								</tr>
 
@@ -124,7 +126,8 @@
 						</td>
 					</tr>
 
-					<tr class="border1px">
+					<tr class="border1px"
+						ng-show="transactionData.marginType != 'No Margin'">
 						<td colspan="2" align="center">
 							<table style="width: 80%" border="0">
 
@@ -142,18 +145,20 @@
 									<td width="50%"><div class="input-group width90">
 											<label class="input-group-addon" for="productId"><i
 												class="glyphicon glyphicon-asterisk "></i></label><input
-												placeholder="Available Margin" ng-disabled="isDisabled"
+												placeholder="Available Margin"
+												ng-disabled="(transactionData.marginType == 'No Margin' || isDisabled)?true:false"
 												class="form-control ng-pristine  ng-valid ng-valid-required"
-												type="text" required="" valid-alphabet
-												ng-model="primary_Details_Obj.city_Of_Expiry" name="">
+												type="text" required="" valid-number
+												ng-model="transactionData.availableMargin" name="">
 										</div></td>
 									<td align="right"><div class="input-group width90">
 											<label class="input-group-addon" for="productId"><i
 												class="glyphicon glyphicon-asterisk "></i></label><input
-												placeholder="Net Margin" ng-disabled="isDisabled"
+												placeholder="Net Margin"
 												class="form-control ng-pristine  ng-valid ng-valid-required"
-												type="text" required="" valid-alphabet
-												ng-model="primary_Details_Obj.city_Of_Expiry" name="">
+												type="text" required="" valid-number
+												ng-disabled="(transactionData.marginType == 'No Margin' || isDisabled)?true:false"
+												ng-model="transactionData.netMargin" name="">
 										</div></td>
 								</tr>
 
@@ -161,8 +166,77 @@
 							</table>
 						</td>
 					</tr>
+					<!-- <tr>
+						<td colspan="4" align="center">
+							<button type="button" class="btn btn-info width86"
+								style="width: 90px; height: 34px;"
+								ng-click="saveOrUpdate()">Submit</button>
+					</tr> -->
 
 
+
+			<tr
+							ng-show="(isVerifyBlockDisplay || isApproveBlockDisplay || isDeletedBlockDisplay || isViewMode) ? false : true">
+							<td colspan="4" align="center">
+								<table style="width: 24%" border="0">
+									<tr style="height: 20px"></tr>
+									<tr>
+										<td width="50%"><button type="button"
+												class="btn btn-info width86"
+												style="width: 90px; height: 34px;" ng-click="resetAction()">Reset</button></td>
+										<td style="width: 5px"></td>
+										<td width="50%"><input type="button" value="Submit"
+											style="width: 90px; height: 34px;" ng-click="submitStatusCodeAction('Submit')"
+											class="btn btn-primary btn-sm"></td>
+									</tr>
+
+								</table>
+							</td>
+						</tr>
+						<tr ng-show="isVerifyBlockDisplay">
+							<td colspan="4" align="center">
+								<table style="width: 24%" border="0">
+									<tr style="height: 20px"></tr>
+									<tr>
+										<td width="50%"><button type="button"
+												class="btn btn-info width86"
+												style="width: 90px; height: 34px;"
+												ng-click="submitStatusCodeAction('Reject')">Reject</button></td>
+										<td style="width: 5px"></td>
+										<td width="50%"><button type="button"
+												class="btn btn-info width86"
+												style="width: 90px; height: 34px;"
+												ng-click="submitStatusCodeAction('Verify')">Verify</button></td>
+									</tr>
+
+								</table>
+							</td>
+						</tr>
+						<tr ng-show="isApproveBlockDisplay">
+							<td colspan="4" align="center">
+								<table style="width: 24%" border="0">
+									<tr style="height: 20px"></tr>
+									<tr>
+										<td width="50%"><button type="button"
+												class="btn btn-info width86"
+												style="width: 90px; height: 34px;"
+												ng-click="submitStatusCodeAction('Reject')">Reject</button></td>
+										<td style="width: 5px"></td>
+										<td width="50%"><button type="button"
+												class="btn btn-info width86"
+												style="width: 90px; height: 34px;"
+												ng-click="submitStatusCodeAction('Approve')">Approve</button></td>
+									</tr>
+
+								</table>
+							</td>
+						</tr>
+						<tr ng-show="isDeletedBlockDisplay">
+							<td colspan="4" align="center">
+								<button type="button" class="btn btn-info width86"
+									style="width: 90px; height: 34px;"
+									ng-click="submitStatusCodeAction('Delete')">Delete</button>
+						</tr>
 
 				</table></td>
 		</tr>

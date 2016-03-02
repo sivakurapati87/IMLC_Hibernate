@@ -19,6 +19,7 @@ import com.intuiture.imlc.entities.Counterparty;
 import com.intuiture.imlc.entities.Country;
 import com.intuiture.imlc.entities.Currency;
 import com.intuiture.imlc.entities.Customer;
+import com.intuiture.imlc.entities.DeferredPayment;
 import com.intuiture.imlc.entities.Document;
 import com.intuiture.imlc.entities.Global_Parameters;
 import com.intuiture.imlc.entities.ImportLCIssue;
@@ -31,6 +32,7 @@ import com.intuiture.imlc.json.CounterpartyJson;
 import com.intuiture.imlc.json.CountryJson;
 import com.intuiture.imlc.json.CurrencyJson;
 import com.intuiture.imlc.json.CustomerJson;
+import com.intuiture.imlc.json.DeferredPaymentJson;
 import com.intuiture.imlc.json.DocumentJson;
 import com.intuiture.imlc.json.GlobalParameterJson;
 import com.intuiture.imlc.json.ImportLCIssueJson;
@@ -323,6 +325,65 @@ public class TransformDomainToJson {
 		if (importLCIssue.getCounterparty() != null) {
 			json.setCounterpartyJson(getCounterpartyJson(importLCIssue.getCounterparty()));
 		}
+		if (importLCIssue.getDeferredPayment() != null) {
+			json.setDeferredPaymentJson(getDeferredPaymentJson(importLCIssue.getDeferredPayment()));
+		}
+		json.setAdvisingBankId(importLCIssue.getAdvisingBankId());
+		json.setAdvisingBankName(importLCIssue.getAdvisingBankName());
+		json.setAdvisingBankAddress(importLCIssue.getAdvisingBankAddress());
+		json.setAdviseThroughBankID(importLCIssue.getAdviseThroughBankID());
+		json.setAdviseThroughBankName(importLCIssue.getAdviseThroughBankName());
+		json.setAdviseThroughBankAddress(importLCIssue.getAdviseThroughBankAddress());
+		json.setReimbursementBankID(importLCIssue.getReimbursementBankID());
+		json.setRemibursementBankName(importLCIssue.getRemibursementBankName());
+		json.setRemibursementBankAddress(importLCIssue.getRemibursementBankAddress());
+		json.setConfirming_Instructions(importLCIssue.getConfirming_Instructions());
+		json.setConfirmingBankdID(importLCIssue.getConfirmingBankdID());
+		json.setConfirmingBankName(importLCIssue.getConfirmingBankName());
+		json.setDocumentId(importLCIssue.getDocumentId());
+		json.setDocumentName(importLCIssue.getDocumentName());
+		json.setDocumentDescription(importLCIssue.getDocumentDescription());
+
+		// json.setLatestShipmentDate(importLCIssue.getLatestShipmentDate());
+		json.setStrLatestShipmentDate(convertDateToString(importLCIssue.getLatestShipmentDate()));
+		json.setGoodsCode(importLCIssue.getGoodsCode());
+		json.setGoodsDescription(importLCIssue.getGoodsDescription());
+		json.setIncoterms(importLCIssue.getIncoterms());
+		json.setSenderRecieverInfo(importLCIssue.getSenderRecieverInfo());
+		json.setShipmentPeriod(importLCIssue.getShipmentPeriod());
+		json.setPeriodOfPresentation(importLCIssue.getPeriodOfPresentation());
+		json.setAddtnlConditnReqd(importLCIssue.getAddtnlConditnReqd());
+		json.setNumCopies(importLCIssue.getNumCopies());
+		json.setTransshipment(importLCIssue.getTransshipment());
+		json.setPartialShipment(importLCIssue.getPartialShipment());
+		json.setPlaceOfDestination(importLCIssue.getPlaceOfDestination());
+		json.setFreightEndorsement(importLCIssue.getFreightEndorsement());
+		json.setPortofLoading(importLCIssue.getPortofLoading());
+		json.setPortofDelivery(importLCIssue.getPortofDelivery());
+		json.setPlaceofTakingCharge(importLCIssue.getPlaceofTakingCharge());
+		json.setInstructionsNegotitatingBank(importLCIssue.getInstructionsNegotitatingBank());
+		json.setTenorType(importLCIssue.getTenorType());
+		json.setTenorTypeUsance(importLCIssue.getTenorTypeUsance());
+		json.setTenorTypeSight(importLCIssue.getTenorTypeSight());
+		json.setUsnaceFrom(importLCIssue.getUsnaceFrom());
+		json.setMixedPaymentDetails(importLCIssue.getMixedPaymentDetails());
+		// json.setDeferredPayment(importLCIssue.getDeferredPayment());
+		json.setAvailableWithBank(importLCIssue.getAvailableWithBank());
+		json.setAvailableWithBankID(importLCIssue.getAvailableWithBankID());
+		json.setAvailableWithBankName(importLCIssue.getAvailableWithBankName());
+		json.setAvailableWithBankAddress(importLCIssue.getAvailableWithBankAddress());
+		json.setAvailableWithBankBy(importLCIssue.getAvailableWithBankBy());
+		json.setDraftAt(importLCIssue.getDraftAt());
+		json.setInterestRate(importLCIssue.getInterestRate());
+
+		json.setMarginType(importLCIssue.getMarginType());
+		json.setDebitAccountNum(importLCIssue.getDebitAccountNum());
+		json.setCreditAccountNum(importLCIssue.getCreditAccountNum());
+		json.setMarginPerCent(importLCIssue.getMarginPerCent());
+		json.setMarginAmt(importLCIssue.getMarginAmt());
+		json.setAvailableMargin(importLCIssue.getAvailableMargin());
+		json.setNetMargin(importLCIssue.getNetMargin());
+
 		return json;
 	}
 
@@ -366,5 +427,15 @@ public class TransformDomainToJson {
 		}
 
 		return swiftJson;
+	}
+
+	public static DeferredPaymentJson getDeferredPaymentJson(DeferredPayment deferredPayment) {
+		DeferredPaymentJson json = new DeferredPaymentJson();
+		json.setAmount(deferredPayment.getAmount());
+		json.setDeferredPaymentId(deferredPayment.getDeferredPaymentId());
+		json.setImportLCIssueId(deferredPayment.getImportLCIssueId());
+		json.setRemarks(deferredPayment.getRemarks());
+		json.setStrDate(convertDateToString(deferredPayment.getDate()));
+		return json;
 	}
 }

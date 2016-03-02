@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('Shipment_Details_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout', function($cookies,$http,$scope,$rootScope,$location,$timeout) {
+App.controller('Shipment_Details_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout','$state', function($cookies,$http,$scope,$rootScope,$location,$timeout,$state) {
 	
 	$scope.quantity = 10;//limiting the displaying records in the popup
 	//Disabling the back button
@@ -13,8 +13,9 @@ App.controller('Shipment_Details_Controller', ['$cookies','$http','$scope','$roo
 	
 	//state of the page
 	$scope.state_info_name = "shipment_details";
-//	$scope.primary_Details_Obj = {};
-	$scope.primary_Details_Obj = $rootScope.transactionData;
+//	$rootScope.transactionData = {};
+	$rootScope.transactionData.periodOfPresentation = $rootScope.tempImportLCObj.period_Of_Presentation;
+//	$rootScope.transactionData = $rootScope.transactionData;
 	//For loading symbol
 	 	$scope.loader = {
 		      loading: false,
@@ -27,116 +28,94 @@ App.controller('Shipment_Details_Controller', ['$cookies','$http','$scope','$roo
 	        $scope.loader.loading = false ;
 	    }
 	    
-	    //This function is to get the selected advising bank from auto population
-        $scope.selectedAdvisingIdAction = function(selected) {
+	    //This function is to get the selected incoterm from auto population
+        $scope.selectedIncotermIdAction = function(selected) {
             if (selected && selected.title) {
-          	  $scope.primary_Details_Obj.advisingBankId = selected.title;
-          	  $scope.getBankJsonById($scope.primary_Details_Obj.advisingBankId);
-          	$scope.primary_Details_Obj.advisingBankName = $scope.tempBankJson.bankName;
-          	$scope.primary_Details_Obj.advisingBankAddress = $scope.tempBankJson.bankAddress;
+            	  $rootScope.transactionData.incoterms = selected.title;
             } else {
               console.log('cleared');
             }
           };
           
-          //This function is to get the selected advising Through bank from auto population
-          $scope.selectedAdvisingThroughIdAction = function(selected) {
+          //This function is to get the selected Commodity Code from auto population
+          $scope.selectedCommodityCodeAction = function(selected) {
               if (selected && selected.title) {
-            	  $scope.primary_Details_Obj.adviseThroughBankID = selected.title;
-            	  $scope.getBankJsonById($scope.primary_Details_Obj.adviseThroughBankID);
-            	$scope.primary_Details_Obj.adviseThroughBankName = $scope.tempBankJson.bankName;
-            	$scope.primary_Details_Obj.adviseThroughBankAddress = $scope.tempBankJson.bankAddress;
+            	  $scope.getCommodity(selected.title);
+              	$rootScope.transactionData.goodsCode = $scope.commodity.commodityCode;
+      		  $rootScope.transactionData.goodsDescription = $scope.commodity.commodityDescription;
               } else {
                 console.log('cleared');
               }
             };
-            
-            //This function is to get the selected Reimbursement bank from auto population
-            $scope.selectedReimbursementBankIdAction = function(selected) {
-                if (selected && selected.title) {
-              	  $scope.primary_Details_Obj.reimbursementBankID = selected.title;
-              	  $scope.getBankJsonById($scope.primary_Details_Obj.reimbursementBankID);
-              	$scope.primary_Details_Obj.remibursementBankName = $scope.tempBankJson.bankName;
-              	$scope.primary_Details_Obj.remibursementBankAddress = $scope.tempBankJson.bankAddress;
-                } else {
-                  console.log('cleared');
-                }
-              };
-              //This function is to get the selected Reimbursement bank from auto population
-              $scope.selectedConfirmingBankIdAction = function(selected) {
-                  if (selected && selected.title) {
-                	  $scope.primary_Details_Obj.confirmingBankdID = selected.title;
-                	  $scope.getBankJsonById($scope.primary_Details_Obj.confirmingBankdID);
-                	$scope.primary_Details_Obj.confirmingBankName = $scope.tempBankJson.bankName;
-                  } else {
-                    console.log('cleared');
-                  }
-                };
                 
-	    $scope.openAdvisingBankPopup = function(popupName){
-	    	$scope.popupName = popupName;//To know the type of popup
-	    	  angular.element('#bankListPopup').trigger('click');
-	    };
-                
-          //onSelect bank from the bank table in the popup
-          $scope.onselectBankId = function(bank) {
-        	  $('#bankListPopupId').modal('hide');
-        	  if($scope.popupName == constants.Advising){
-        		  $scope.primary_Details_Obj.advisingBankId = bank.bankId;
-        		  $scope.advisingBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'advisingBankId', $scope.advisingBank);
-        			$scope.primary_Details_Obj.advisingBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.advisingBankAddress = bank.bankAddress;
-        	  }
-        	  if($scope.popupName == constants.AdvisingThrough){
-        		  $scope.primary_Details_Obj.adviseThroughBankID = bank.bankId;
-        		  $scope.advisingThroughBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'adviseThroughBankID', $scope.advisingThroughBank);
-        			$scope.primary_Details_Obj.adviseThroughBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.adviseThroughBankAddress = bank.bankAddress;
-        	  }
-        	  if($scope.popupName == constants.Reimbursement){
-        		  $scope.primary_Details_Obj.reimbursementBankID = bank.bankId;
-        		  $scope.reimbursementBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'reimbursementBankId', $scope.reimbursementBank);
-        			$scope.primary_Details_Obj.remibursementBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.remibursementBankAddress = bank.bankAddress;
-        	  }
-        	  if($scope.popupName == constants.confirming){
-        		  $scope.primary_Details_Obj.confirmingBankdID = bank.bankId;
-        		  $scope.confirmingBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'confirmingBankID', $scope.confirmingBank);
-        			$scope.primary_Details_Obj.confirmingBankName = bank.bankName;
-        	  }
-            	  
+          //onSelect incoterm from the incoterm table in the popup
+          $scope.onselectIncotermId = function(incoterm) {
+        	  $('#IncotermListPopupId').modal('hide');
+        		  $rootScope.transactionData.incoterms = incoterm.incotermsId;
+//        		  $scope.incoterm = incoterm;
+        		  $scope.getIncoterm(incoterm.incotermsId);
+        		  $scope.$broadcast('angucomplete-alt:changeInput', 'incotermsId', $scope.incoterm);
           };
           
-          //This is to get the bank details
-          $scope.getBankJsonById = function(id) {
-        		  angular.forEach($scope.bankJsonList, function(obj, key)
+          //onSelect commodity/goods from the commodity/goods table in the popup
+          $scope.onselectCommodityId = function(commodity) {
+        	  $('#CommodityListPopupId').modal('hide');
+        		  $rootScope.transactionData.goodsCode = commodity.commodityCode;
+        		  $rootScope.transactionData.goodsDescription = commodity.commodityDescription;
+        		  $scope.commodity = commodity;
+        		  $scope.$broadcast('angucomplete-alt:changeInput', 'commodityCodeId', $scope.commodity);
+          };
+          
+          //This is to get the Commodity details
+          $scope.getCommodity = function(id) {
+        		angular.forEach($scope.commodityJsonList, function(obj, key)
         				  {
-		           	   		if(obj.bankId == id)
-		           	   			{
-		           	   			$scope.tempBankJson = obj;
-		           	   			}
-		           	     });
+  		           	   		if(obj.commodityCode == id)
+  		           	   			{
+  		           	   			$scope.commodity = obj;
+  		           	   			}
+  		           	     });
+          };
+          
+          //This is to get the Incoterm details
+          $scope.getIncoterm = function(id) {
+        		angular.forEach($scope.incotermJsonList, function(obj, key)
+        				  {
+  		           	   		if(obj.incotermsId == id)
+  		           	   			{
+  		           	   			$scope.incoterm = obj;
+  		           	   			}
+  		           	     });
           };
           
           
-	// getting the all lookup       
-	          $scope.getAllLookup = function() {
+          //Save the record     
+          $scope.saveOrUpdate = function() {
+        	  $state.go('draft_details');
+          };
+          
+	// getting the all incoterms and commodities       
+	          $scope.init = function() {
 	        	  $scope.showloader();
 	              $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.IncotermsController+'/getAllIncoterms').success(function(data){
-	            	  $scope.incotermJsonList  = data;//getting all lookups
-	            	  $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.IncotermsController+'/getAllIncoterms').success(function(result){
-		            	  $scope.commodityJsonList  = result;//getting all lookups
+	            	  $scope.incotermJsonList  = data;//getting all incoterms
+	            	  $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.CommodityController+'/getAllCommodities').success(function(result){
+		            	  $scope.commodityJsonList  = result;//getting all commodities
+		            	  if($rootScope.transactionData.incoterms){
+		            		  $scope.getIncoterm($rootScope.transactionData.incoterms);
+		            		  $scope.$broadcast('angucomplete-alt:changeInput', 'incotermsId', $scope.incoterm);
+		            	  }
+		            	  if($rootScope.transactionData.goodsCode){
+		            		  $scope.getCommodity($rootScope.transactionData.goodsCode);
+		            		  $scope.$broadcast('angucomplete-alt:changeInput', 'commodityCodeId', $scope.commodity);
+		            	  }
 		            	    $scope.hideloader();
 		              });
 	              });
 	          };
 	          
 	      	
-	          $scope.getAllLookup();
+	          $scope.init();
 			
 	}]);
 

@@ -20,42 +20,42 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	//transaction Reference Number
 	$scope.transactionRefNumber = null;
 	//verify or reject block display
-	$scope.isVerifyBlockDisplay = false;
+	$rootScope.isVerifyBlockDisplay = false;
 	//approve or reject block display
-	$scope.isApproveBlockDisplay = false;
+	$rootScope.isApproveBlockDisplay = false;
 	//deleted block display
-	$scope.isDeletedBlockDisplay = false;
+	$rootScope.isDeletedBlockDisplay = false;
 	//view block display
-	$scope.isViewMode = false;
+	$rootScope.isViewMode = false;
 	
 	//OnSelect Radio button
 	$scope.onclickSelectedTypeOfMode = function(){
 		// If selected radio button is create new
 		if($scope.selectedTypeOfMode == constants.Create_New){
-			$scope.isDisabled = false;
-			$scope.isVerifyBlockDisplay = false;
-			$scope.isApproveBlockDisplay = false;
-			$scope.isDeletedBlockDisplay = false;
+			$rootScope.isDisabled = false;
+			$rootScope.isVerifyBlockDisplay = false;
+			$rootScope.isApproveBlockDisplay = false;
+			$rootScope.isDeletedBlockDisplay = false;
 			 $http.get(constants.localhost_port+"/"+constants.web_context+'/'+constants.PrimaryDetailController+'/init_ImportLCIssueJson').success(function(data){
-				 $scope.primary_Details_Obj  = data;//getting all 
+				 $rootScope.transactionData  = data;//getting all 
            	$scope.$broadcast('angucomplete-alt:clearInput');//To clear the angu complete values
              });
 		}
 		// If selected radio button is cloning
 		if($scope.selectedTypeOfMode == constants.Create_from_an_existing){
-			$scope.isDisabled = false;
-			$scope.isVerifyBlockDisplay = false;
-			$scope.isApproveBlockDisplay = false;
-			$scope.isDeletedBlockDisplay = false;
+			$rootScope.isDisabled = false;
+			$rootScope.isVerifyBlockDisplay = false;
+			$rootScope.isApproveBlockDisplay = false;
+			$rootScope.isDeletedBlockDisplay = false;
 			$scope.transactionPickMode = null;
 			angular.element('#cloneTransactionModePopupId').trigger('click');
 		}
 		// If selected radio button is verify
 		if($scope.selectedTypeOfMode == constants.Verify){
-			$scope.isDisabled = true;
-			$scope.isVerifyBlockDisplay = true;
-			$scope.isApproveBlockDisplay = false;
-			$scope.isDeletedBlockDisplay = false;
+			$rootScope.isDisabled = true;
+			$rootScope.isVerifyBlockDisplay = true;
+			$rootScope.isApproveBlockDisplay = false;
+			$rootScope.isDeletedBlockDisplay = false;
 			 $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.PrimaryDetailController+'/getAllPrimaryDetailsByStatusId/'+constants.Confirmed).success(function(data){
 				 if(data){
 	           		 $scope.primaryDataList  = data;//getting all primary Data
@@ -68,10 +68,10 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 		}
 		// If selected radio button is edit
 		if($scope.selectedTypeOfMode == constants.Edit){
-			$scope.isDisabled = false;
-			$scope.isVerifyBlockDisplay = false;
-			$scope.isApproveBlockDisplay = false;
-			$scope.isDeletedBlockDisplay = false;
+			$rootScope.isDisabled = false;
+			$rootScope.isVerifyBlockDisplay = false;
+			$rootScope.isApproveBlockDisplay = false;
+			$rootScope.isDeletedBlockDisplay = false;
 			 $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.PrimaryDetailController+'/getAllPrimaryDetailsByStatusId/'+constants.Rejected).success(function(data){
 				 if(data){
 	           		 $scope.primaryDataList  = data;//getting all primary Data
@@ -84,10 +84,10 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 		}
 		// If selected radio button is approve
 		if($scope.selectedTypeOfMode == constants.Approve){
-			$scope.isDisabled = true;
-			$scope.isVerifyBlockDisplay = false;
-			$scope.isApproveBlockDisplay = true;
-			$scope.isDeletedBlockDisplay = false;
+			$rootScope.isDisabled = true;
+			$rootScope.isVerifyBlockDisplay = false;
+			$rootScope.isApproveBlockDisplay = true;
+			$rootScope.isDeletedBlockDisplay = false;
 			 $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.PrimaryDetailController+'/getAllPrimaryDetailsByStatusId/'+constants.Verified).success(function(data){
 				 if(data){
 	           		 $scope.primaryDataList  = data;//getting all primary Data
@@ -100,10 +100,10 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 		}
 		// If selected radio button is delete
 		if($scope.selectedTypeOfMode == constants.Delete){
-			$scope.isDisabled = true;
-			$scope.isVerifyBlockDisplay = false;
-			$scope.isApproveBlockDisplay = false;
-			$scope.isDeletedBlockDisplay = true;
+			$rootScope.isDisabled = true;
+			$rootScope.isVerifyBlockDisplay = false;
+			$rootScope.isApproveBlockDisplay = false;
+			$rootScope.isDeletedBlockDisplay = true;
 			 $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.PrimaryDetailController+'/getAllPrimaryDetailsByCustomerOrBenificiaryId?customerId='+0+'&benificiaryId='+null+'&statusId='+0).success(function(data){
            	 if(data){
            		 $scope.primaryDataList  = data;//getting all primary Data
@@ -117,11 +117,11 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 		}
 		// If selected radio button is view
 		if($scope.selectedTypeOfMode == constants.View){
-			$scope.isDisabled = true;
-			$scope.isVerifyBlockDisplay = false;
-			$scope.isApproveBlockDisplay = false;
-			$scope.isDeletedBlockDisplay = false;
-			$scope.isViewMode = true;
+			$rootScope.isDisabled = true;
+			$rootScope.isVerifyBlockDisplay = false;
+			$rootScope.isApproveBlockDisplay = false;
+			$rootScope.isDeletedBlockDisplay = false;
+			$rootScope.isViewMode = true;
 			 $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.PrimaryDetailController+'/getAllPrimaryDetailsByCustomerOrBenificiaryId?customerId='+0+'&benificiaryId='+null+'&statusId='+0).success(function(data){
            	 if(data){
            		 $scope.primaryDataList  = data;//getting all primary Data
@@ -180,8 +180,9 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	          
 	          //This is to display the transaction popup based on selected cloning customerId
 	          $scope.onselectClone_CustomerRadioId = function(customerId){
+	        	  $('#cloneTransactionModePopup').modal('hide');
+	        	  $timeout(function() {
 	        	  $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.PrimaryDetailController+'/getAllPrimaryDetailsByCustomerOrBenificiaryId?customerId='+customerId+'&benificiaryId='+null+'&statusId='+constants.Confirmed).success(function(data){
-	        		  $('#cloneTransactionModePopup').modal('hide');
 	        		  if(data){
 	            		  $scope.primaryDataList  = data;//getting all primary Data
 		            	  angular.element('#transactionPopup').trigger('click');
@@ -190,12 +191,14 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	            		  angular.element('#erroPopupId').trigger('click');
 	            	  }
 	              });
+	        	  }, 400);
 	          };
 	          
 	        //This is to display the transaction popup based on selected cloning benificiaryId
 	          $scope.onselectClone_BenificiaryRadioId = function(benificiaryId){
+	        	  $('#cloneTransactionModePopup').modal('hide');
+	        	  $timeout(function() {
 	        	  $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.PrimaryDetailController+'/getAllPrimaryDetailsByCustomerOrBenificiaryId?customerId='+0+'&benificiaryId='+benificiaryId+'&statusId='+constants.Confirmed).success(function(data){
-	        		  $('#cloneTransactionModePopup').modal('hide');
 	        		  if(data){
 	            		  $scope.primaryDataList  = data;//getting all primary Data
 		            	  angular.element('#transactionPopup').trigger('click');
@@ -204,12 +207,13 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	            		  angular.element('#erroPopupId').trigger('click');
 	            	  }
 	              });
+	        	  }, 400);
 	          };
 	          
 	          //This is to get the list of templates of a product
 	          $scope.onchangeProductId = function() {
-	        	  if($scope.primary_Details_Obj.productID){
-	              $http.get(constants.localhost_port+"/"+constants.service_context+'/ImportLCGlobalParameterDeclarationController/findTemplateTypesByProductId/'+$scope.primary_Details_Obj.productID).success(function(data){
+	        	  if($rootScope.transactionData.productID){
+	              $http.get(constants.localhost_port+"/"+constants.service_context+'/ImportLCGlobalParameterDeclarationController/findTemplateTypesByProductId/'+$rootScope.transactionData.productID).success(function(data){
 	            	  if(data){
 	            		  $scope.lookupbean.typeOfLCList = data;
 	            		  $('#productIdsListId').modal('hide');
@@ -223,39 +227,43 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	          
 	          //onSelect ProductId from the productIds table
 	          $scope.onselectProductId = function(productId) {
-	        		  $scope.primary_Details_Obj.productID = productId;
+	        		  $rootScope.transactionData.productID = productId;
 	        		  $scope.onchangeProductId();
 	          };
 	          
 	          
 	          //This function is to get the Global Parameter Info
 	          $scope.getGlobalParameterInfo = function() {
-	        	  if($scope.primary_Details_Obj.productID && $scope.primary_Details_Obj.type_of_LC){
-	              $http.get(constants.localhost_port+"/"+constants.service_context+'/ImportLCGlobalParameterDeclarationController/findGlobalParameterByProductId_TemplateType?productId='+$scope.primary_Details_Obj.productID+"&template="+$scope.primary_Details_Obj.type_of_LC).success(function(data){
-	            	  if(data){
-	            		  $scope.tempImportLCObj=data;
-	            		  $scope.primary_Details_Obj.tolerance_Min = data.tolerance_Min;
-	            		  $scope.primary_Details_Obj.tolerance_Max = data.tolerance_Max;
-	            		  $scope.tolerance_Max = data.tolerance_Max;
+	        	  if($rootScope.transactionData.productID && $rootScope.transactionData.type_of_LC){
+	        		  $scope.getGlobalParamsByProductIdandTypeOfLC();
+	            		  $rootScope.transactionData.tolerance_Min =  $rootScope.tempImportLCObj.tolerance_Min;
+	            		  $rootScope.transactionData.tolerance_Max =  $rootScope.tempImportLCObj.tolerance_Max;
+	            		  $scope.tolerance_Max =  $rootScope.tempImportLCObj.tolerance_Max;
 	            		  $scope.findRiskAmount();
-	            	  }else{
-	            		  $scope.tempImportLCObj={}; 
-	            	  }
-	              });}
+	            	 }
 	          };
 	          
+	          $scope.getGlobalParamsByProductIdandTypeOfLC = function(){
+	        	  $http.get(constants.localhost_port+"/"+constants.service_context+'/ImportLCGlobalParameterDeclarationController/findGlobalParameterByProductId_TemplateType?productId='+$rootScope.transactionData.productID+"&template="+$rootScope.transactionData.type_of_LC).success(function(data){
+	            	  if(data){
+	            		  $rootScope.tempImportLCObj=data;
+	            	  }else{
+	            		  $rootScope.tempImportLCObj={}; 
+	            	  }
+	              });
+	          };
 	          
 	          //This is to get the customer details
 	          $scope.getCustomerInfoById = function() {
-	        	  if($scope.primary_Details_Obj.customerId){
-	              $http.get(constants.localhost_port+"/"+constants.service_context+'/CustomerController/getCustomerInfoByCustomerId/'+$scope.primary_Details_Obj.customerId).success(function(data){
+	        	  if($rootScope.transactionData.customerId){
+	              $http.get(constants.localhost_port+"/"+constants.service_context+'/CustomerController/getCustomerInfoByCustomerId/'+$rootScope.transactionData.customerId).success(function(data){
 	            	 if(data){
 	            	  $scope.customer= data;
 	            	  $scope.$broadcast('angucomplete-alt:changeInput', 'customerId', $scope.customer);
-	            	  $scope.primary_Details_Obj.customerName= $scope.customer.customerName;
-	            	  $scope.primary_Details_Obj.customerAddress= $scope.customer.customerAddress;
-	            	  if($scope.tempImportLCObj.contingent_Liability == constants.Yes){
-	            		  $scope.primary_Details_Obj.liabilityAccountsImportLC =   $scope.customer.liabilityAccountsImportLC;
+	            	  $rootScope.transactionData.customerName= $scope.customer.customerName;
+	            	  $rootScope.transactionData.customerAddress= $scope.customer.customerAddress;
+	            	  if($rootScope.tempImportLCObj.contingent_Liability == constants.Yes){
+	            		  $rootScope.transactionData.liabilityAccountsImportLC =   $scope.customer.liabilityAccountsImportLC;
 	            	  }
 	            	  }else{
 	            		  angular.element('#customerPopupId').trigger('click');
@@ -267,7 +275,7 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	          //This function is to get the selected customerId from auto population
 	          $scope.selectedCustomerIdAction = function(selected) {
 	              if (selected && selected.title) {
-	            	  $scope.primary_Details_Obj.customerId = selected.title;
+	            	  $rootScope.transactionData.customerId = selected.title;
 	            	  $scope.getCustomerInfoById();
 	              } else {
 	                console.log('cleared');
@@ -276,24 +284,24 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	          
 	        //onSelect customer from the Customer table
 	          $scope.onselectCustomerId = function(customer) {
-	        		  $scope.primary_Details_Obj.customerId = customer.customerId;
+	        		  $rootScope.transactionData.customerId = customer.customerId;
 	        		  $scope.customer= customer;
 	        		  $scope.$broadcast('angucomplete-alt:changeInput', 'customerId', $scope.customer);
-	            	  $scope.primary_Details_Obj.customerName= $scope.customer.customerName;
-	            	  $scope.primary_Details_Obj.customerAddress= $scope.customer.customerAddress;
+	            	  $rootScope.transactionData.customerName= $scope.customer.customerName;
+	            	  $rootScope.transactionData.customerAddress= $scope.customer.customerAddress;
 	            	  $('#customersListId').modal('hide');
-	            	  if($scope.tempImportLCObj.contingent_Liability == constants.Yes){
-	            		  $scope.primary_Details_Obj.liabilityAccountsImportLC =   $scope.customer.liabilityAccountsImportLC;
+	            	  if($rootScope.tempImportLCObj.contingent_Liability == constants.Yes){
+	            		  $rootScope.transactionData.liabilityAccountsImportLC =   $scope.customer.liabilityAccountsImportLC;
 	            	  }
 	          };
 	          
 	          
 	          //findout the risk amount
 	          $scope.findRiskAmount=function(){
-	        	  if( $scope.primary_Details_Obj.tolerance_Max){
-	        		  $scope.primary_Details_Obj.risk_Amount= parseInt($scope.primary_Details_Obj.lCAmount) + parseInt(($scope.primary_Details_Obj.tolerance_Max/100) *  $scope.primary_Details_Obj.lCAmount);
+	        	  if( $rootScope.transactionData.tolerance_Max){
+	        		  $rootScope.transactionData.risk_Amount= parseInt($rootScope.transactionData.lCAmount) + parseInt(($rootScope.transactionData.tolerance_Max/100) *  $rootScope.transactionData.lCAmount);
 	        	  }else{
-	        		  $scope.primary_Details_Obj.risk_Amount = $scope.primary_Details_Obj.max_Credit_Amount;
+	        		  $rootScope.transactionData.risk_Amount = $rootScope.transactionData.max_Credit_Amount;
 	        	  }
 	        	  $scope.findForexRates();
 	          }
@@ -301,16 +309,16 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	          //check the lc amount value with limit available for utilization
 	          $scope.checkLCAmount_With_LimitAvailableForUtil=function(){
 	        	  $scope.findRiskAmount();
-	        	  if($scope.primary_Details_Obj.lcAmountCurrency && $scope.primary_Details_Obj.lcAmountCurrency == constants.INR){
-	        		  if($scope.primary_Details_Obj.lCAmount){//checking with the lc amount
-	        			  if(parseInt($scope.primary_Details_Obj.lCAmount) > parseInt($scope.primary_Details_Obj.limitAvailable_For_Utilization)){
+	        	  if($rootScope.transactionData.lcAmountCurrency && $rootScope.transactionData.lcAmountCurrency == constants.INR){
+	        		  if($rootScope.transactionData.lCAmount){//checking with the lc amount
+	        			  if(parseInt($rootScope.transactionData.lCAmount) > parseInt($rootScope.transactionData.limitAvailable_For_Utilization)){
 	        				  $scope.error= "LC Amount should be less than Limit Available for Utilization";
 	                		  angular.element('#erroPopupId').trigger('click');
 	        			  }
 	        		  }
 	        	  }else{
-	        		  if($scope.primary_Details_Obj.lCAmount_Domestic_Currency){//checking with the lc amount in domestic currency
-	        			  if(parseInt($scope.primary_Details_Obj.lCAmount_Domestic_Currency) > parseInt($scope.primary_Details_Obj.limitAvailable_For_Utilization)){
+	        		  if($rootScope.transactionData.lCAmount_Domestic_Currency){//checking with the lc amount in domestic currency
+	        			  if(parseInt($rootScope.transactionData.lCAmount_Domestic_Currency) > parseInt($rootScope.transactionData.limitAvailable_For_Utilization)){
 	        				  $scope.error= "LC Amount should be less than Limit Available for Utilization";
 	                		  angular.element('#erroPopupId').trigger('click');
 	        			  }
@@ -321,12 +329,12 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	          //In cloning, if tolerance max is greater than cloning tolerance max
 	          $scope.isGreaterThanPrevious = function(){
 	        	  $scope.findRiskAmount();
-	        	  if(($scope.primary_Details_Obj.tolerance_Max && $scope.tolerance_Max)){
-	        		 if(parseInt($scope.primary_Details_Obj.tolerance_Max)>parseInt($scope.tolerance_Max)) {
+	        	  if(($rootScope.transactionData.tolerance_Max && $scope.tolerance_Max)){
+	        		 if(parseInt($rootScope.transactionData.tolerance_Max)>parseInt($scope.tolerance_Max)) {
 	           		  $scope.error="Tolerance % higher than what is mentioned at Instrument Level";
             		  angular.element('#erroPopupId').trigger('click');
 	        		 }
-//	        		 else if(parseInt($scope.primary_Details_Obj.tolerance_Min)>parseInt($scope.tolerance_Min)) {
+//	        		 else if(parseInt($rootScope.transactionData.tolerance_Min)>parseInt($scope.tolerance_Min)) {
 //		           		  $scope.error="Tolerance % higher than what is mentioned at Instrument Level";
 //	            		  angular.element('#erroPopupId').trigger('click');
 //		        		 }
@@ -336,23 +344,23 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	          //Get the forex rates based on the selected currency code
 	          $scope.findForexRates = function(){
 	        	  angular.forEach($scope.lookupbean.lcAmountList, function(obj, key){
-		           	   if(obj.currencyCode == $scope.primary_Details_Obj.lcAmountCurrency)
+		           	   if(obj.currencyCode == $rootScope.transactionData.lcAmountCurrency)
 		           		   {
-		           		$scope.primary_Details_Obj.lCAmount_Domestic_Currency = parseInt(obj.forexRate)*$scope.primary_Details_Obj.lCAmount;
-		           		$scope.primary_Details_Obj.exchange_Rate = obj.forexRate;
+		           		$rootScope.transactionData.lCAmount_Domestic_Currency = parseInt(obj.forexRate)*$rootScope.transactionData.lCAmount;
+		           		$rootScope.transactionData.exchange_Rate = obj.forexRate;
 		           		}
 		           	     });
 	          }
 	          
 	          //Getting Benificiery Info
 	          $scope.getBenificieryInfo = function() {
-	        	  if($scope.primary_Details_Obj.counterpartyId){
-	              $http.get(constants.localhost_port+"/"+constants.service_context+'/CounterPartyController/getCounterPartyByCounterPartyId/'+$scope.primary_Details_Obj.counterpartyId).success(function(data){
+	        	  if($rootScope.transactionData.counterpartyId){
+	              $http.get(constants.localhost_port+"/"+constants.service_context+'/CounterPartyController/getCounterPartyByCounterPartyId/'+$rootScope.transactionData.counterpartyId).success(function(data){
 	            	  if(data){
 	            	  $scope.counterParty= data;
             		  $scope.$broadcast('angucomplete-alt:changeInput', 'counterpartyId', $scope.counterParty);
-	            	  $scope.primary_Details_Obj.counterpartyName= $scope.counterParty.counterpartyName;
-	            	  $scope.primary_Details_Obj.counterpartyAddress= $scope.counterParty.counterpartyAddress;
+	            	  $rootScope.transactionData.counterpartyName= $scope.counterParty.counterpartyName;
+	            	  $rootScope.transactionData.counterpartyAddress= $scope.counterParty.counterpartyAddress;
 	            	  }else{
 	            		  angular.element('#benificieryPopupId').trigger('click');
 	            	  }
@@ -362,7 +370,7 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	          //This function is to get the selected beneficiery from auto population
 	          $scope.selectedBenificieryIdAction = function(selected) {
 	        	  if (selected && selected.title) {
-	            	  $scope.primary_Details_Obj.counterpartyId = selected.title;
+	            	  $rootScope.transactionData.counterpartyId = selected.title;
 	            	  $scope.getBenificieryInfo();
 	              } else {
 	                console.log('cleared');
@@ -374,53 +382,26 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	        	  //putting the selected counterparty to the bean
 	        	  $scope.counterParty= counterparty;
         		  $scope.$broadcast('angucomplete-alt:changeInput', 'counterpartyId', $scope.counterParty);
-	        	  $scope.primary_Details_Obj.counterpartyId = counterparty.counterpartyId;
-            	  $scope.primary_Details_Obj.counterpartyName= $scope.counterParty.counterpartyName;
-            	  $scope.primary_Details_Obj.counterpartyAddress= $scope.counterParty.counterpartyAddress;
+	        	  $rootScope.transactionData.counterpartyId = counterparty.counterpartyId;
+            	  $rootScope.transactionData.counterpartyName= $scope.counterParty.counterpartyName;
+            	  $rootScope.transactionData.counterpartyAddress= $scope.counterParty.counterpartyAddress;
             	  $('#counterpartyListId').modal('hide');
 	          };
 	          
 	          //This is the function to get the formatted date
 	          $scope.formatteddate = function(){
-	        	  var expDate = new Date($scope.primary_Details_Obj.strExpiry_Date);
+	        	  var expDate = new Date($rootScope.transactionData.strExpiry_Date);
 	        	 var month = '' + (expDate.getMonth() + 1);
 	             var day = '' + expDate.getDate();
 	            var  year = expDate.getFullYear();
 	        	  if (month.length < 2) month = '0' + month;
 	        	    if (day.length < 2) day = '0' + day;
-	        	    $scope.primary_Details_Obj.strExpiry_Date =  [year, month, day].join('-');
+	        	    $rootScope.transactionData.strExpiry_Date =  [year, month, day].join('-');
 	          };
 	          
-	     //Save the record     
+	          //Save the record     
 	          $scope.saveOrUpdate = function() {
-	        	  $scope.formatteddate();
-	        	  if($scope.selectedTypeOfMode == constants.Edit || $scope.selectedTypeOfMode == constants.Create_New){
-	        		  $scope.primary_Details_Obj.statusId = constants.Confirmed;
-	        	  }
-	              $http.post(constants.localhost_port+"/"+constants.web_context+'/PrimaryDetailController/submit', $scope.primary_Details_Obj).success(function(data) {
-	            	  if(data){
-	            		  $rootScope.transactionData = $scope.primary_Details_Obj;
-	            		  $scope.getlookupInfo();
-		            		$scope.selectedTypeOfMode = null;
-		            		$scope.transactionRefNumber = null;
-		            		$scope.primary_Details_Obj={};
-		            		$scope.tolerance_Max = null;
-		            		$scope.isDisabled = false;
-		        			$scope.isVerifyBlockDisplay = false;
-		        			$scope.isApproveBlockDisplay = false;
-		        			$scope.isDeletedBlockDisplay = false;
-		        			$scope.isViewMode = false;
-		            		$scope.$broadcast('angucomplete-alt:clearInput');
-		            	  angular.element('#successBlockId').trigger('click');
-		            	 
-	            	  }else{
-	            		  //This is to display the error message
-	            		  $scope.error="Expiry Date should be greater than Issue Date";
-	            		  angular.element('#erroPopupId').trigger('click');
-	            	  }
-	              }).error(function() {
-	            	  console.error('Could not save or update pf');
-	              });
+	        	  $state.go('advising_bank');
 	          };
 	          
 	          //This function is to navigate to another page after transaction has done
@@ -429,7 +410,7 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	        	  $('.modal-backdrop').remove();
 	        	  $timeout(function() {//wait for some time to redirect to another page
 //	        		  $location.path("/jasper_Text_Report");
-//	        		  $state.go('jasper_Text_Report');
+//	        		  $state.go('advising_bank');
 	        		}, 200);
 	        	
 	          }
@@ -439,12 +420,12 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	        	  $scope.getlookupInfo();
           		$scope.selectedTypeOfMode = null;
           		$scope.transactionRefNumber = null;
-          		$scope.primary_Details_Obj={};
-          		$scope.isDisabled = false;
-    			$scope.isVerifyBlockDisplay = false;
-    			$scope.isApproveBlockDisplay = false;
-    			$scope.isDeletedBlockDisplay = false;
-    			$scope.isViewMode = false;
+          		$rootScope.transactionData={};
+          		$rootScope.isDisabled = false;
+    			$rootScope.isVerifyBlockDisplay = false;
+    			$rootScope.isApproveBlockDisplay = false;
+    			$rootScope.isDeletedBlockDisplay = false;
+    			$rootScope.isViewMode = false;
           		$scope.$broadcast('angucomplete-alt:clearInput');//To clear the angu complete values
 	          };
 	          
@@ -466,18 +447,19 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	        	  $scope.transactionPickMode = null;
     			  $scope.isCustomerIdBlockDisplay = false;
     			  $scope.isBenificiaryIdBlockDisplay = false;
-        		  $scope.primary_Details_Obj  = data;
+        		  $rootScope.transactionData  = data;
         		  $scope.customer = data.customerJson;
         		  $scope.counterParty = data.counterpartyJson;
         		  $scope.$broadcast('angucomplete-alt:changeInput', 'customerId', $scope.customer);//injecting customer value
         		  $scope.$broadcast('angucomplete-alt:changeInput', 'counterpartyId', $scope.counterParty);//injecting counterparty value
         		  $scope.tolerance_Max = data.tolerance_Max;//This is the temp variable to hold the tolerance values
         		  $scope.onchangeProductId();
+        		  $scope.getGlobalParamsByProductIdandTypeOfLC();
         		  if($scope.selectedTypeOfMode == constants.Create_New || $scope.selectedTypeOfMode == constants.Create_from_an_existing){//If remarks block is false
             		  $http.get(constants.localhost_port+"/"+constants.web_context+'/PrimaryDetailController/init_ImportLCIssueJson').success(function(result){
-            			  $scope.primary_Details_Obj.transaction_Ref_number  = result.transaction_Ref_number;//putting the new trans_ref_number
-            			  if(!$scope.primary_Details_Obj.limitAvailable_For_Utilization){
-            				  $scope.primary_Details_Obj.limitAvailable_For_Utilization = result.limitAvailable_For_Utilization;
+            			  $rootScope.transactionData.transaction_Ref_number  = result.transaction_Ref_number;//putting the new trans_ref_number
+            			  if(!$rootScope.transactionData.limitAvailable_For_Utilization){
+            				  $rootScope.transactionData.limitAvailable_For_Utilization = result.limitAvailable_For_Utilization;
             			  }
                          });
         		  }
@@ -493,16 +475,16 @@ App.controller('Primary_Detail_Controller', ['$cookies','$http','$scope','$rootS
 	      	//This function is to submit status code
 	      	$scope.submitStatusCodeAction = function(statuscode){
 	      		if(statuscode == constants.Verify){
-	      			$scope.primary_Details_Obj.statusId = constants.Verified;
+	      			$rootScope.transactionData.statusId = constants.Verified;
 	      		}
 	      		if(statuscode == constants.Reject){
-	      			$scope.primary_Details_Obj.statusId = constants.Rejected;
+	      			$rootScope.transactionData.statusId = constants.Rejected;
 	      		}
 	      		if(statuscode == constants.Approve){
-	      			$scope.primary_Details_Obj.statusId = constants.Approved;
+	      			$rootScope.transactionData.statusId = constants.Approved;
 	      		}
 	      		if(statuscode == constants.Delete){
-	      			$scope.primary_Details_Obj.statusId = constants.Deleted;
+	      			$rootScope.transactionData.statusId = constants.Deleted;
 	      		}
 	      		$scope.saveOrUpdate();
 	      	};

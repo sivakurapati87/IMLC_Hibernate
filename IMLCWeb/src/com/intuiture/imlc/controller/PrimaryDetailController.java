@@ -70,13 +70,16 @@ public class PrimaryDetailController {
 
 	@RequestMapping(value = "/submit", method = RequestMethod.POST)
 	@ResponseBody
-	public Boolean submit(@RequestBody ImportLCIssueJson importLCIssueJson) {
-
-		if (CommonUtil.compareTwoDates(CommonUtil.convertDiffferentFormatString(importLCIssueJson.getStrExpiry_Date()), CommonUtil.convertDiffferentFormatString(importLCIssueJson.getStrIssue_Date())) <= 0) {
-			return null;
-		} else {
-			CommonUtil.submitPrimaryDetails(importLCIssueJson);
-		}
-		return true;
+	public Integer submit(@RequestBody ImportLCIssueJson importLCIssueJson) {
+		//
+		// if
+		// (CommonUtil.compareTwoDates(CommonUtil.convertDiffferentFormatString(importLCIssueJson.getStrExpiry_Date()),
+		// CommonUtil.convertDiffferentFormatString(importLCIssueJson.getStrIssue_Date()))
+		// <= 0) {
+		// return null;
+		// } else {
+		return CommonUtil.submitPrimaryDetails(importLCIssueJson);
+		// }
+		// return true;
 	}
 }

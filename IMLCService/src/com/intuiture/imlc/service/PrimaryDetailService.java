@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.intuiture.imlc.entities.DeferredPayment;
 import com.intuiture.imlc.entities.ImportLCIssue;
 import com.intuiture.imlc.json.ImportLCIssueJson;
 import com.intuiture.imlc.repos.CommonRepository;
@@ -22,22 +23,47 @@ public class PrimaryDetailService {
 	@Autowired
 	private PrimaryDetailRepository primaryDetailRepository;
 
-	public Boolean saveOrUpdatePFInfo(ImportLCIssueJson importLCIssueJson) {
+	public Integer saveOrUpdatePFInfo(ImportLCIssueJson importLCIssueJson) {
 		ImportLCIssue importLCIssue = null;
+		Integer transactionRefId = null;
 		try {
-			if (importLCIssueJson.getImportLCIssueId() != null) {
-				ImportLCIssue existedImportLCIssue = primaryDetailRepository.findById(importLCIssueJson.getImportLCIssueId());
-				existedImportLCIssue.setIsDeleted(Boolean.TRUE);
-				commonRepository.update(existedImportLCIssue);
+//			if (!importLCIssueJson.getIsFinalSubmit()) {
+				if (importLCIssueJson.getImportLCIssueId() != null) {
+					ImportLCIssue existedImportLCIssue = (ImportLCIssue) commonRepository.getObjectById(importLCIssueJson.getImportLCIssueId(), ImportLCIssue.class);
+					existedImportLCIssue.setIsDeleted(Boolean.TRUE);
+					commonRepository.update(existedImportLCIssue);
+				}
+				importLCIssue = new ImportLCIssue();
+				TransformJsonToDomain.getImportLCIssueFromJson(importLCIssue, importLCIssueJson);
+				commonRepository.persist(importLCIssue);
+				transactionRefId = importLCIssue.getImportLCIssueId();
+//			} else {
+//				if (importLCIssueJson.getImportLCIssueId() != null) {
+//					ImportLCIssue existedImportLCIssue = (ImportLCIssue) commonRepository.getObjectById(importLCIssueJson.getImportLCIssueId(), ImportLCIssue.class);
+//					TransformJsonToDomain.getImportLCIssueFromJson(existedImportLCIssue, importLCIssueJson);
+//					commonRepository.update(existedImportLCIssue);
+//					transactionRefId = existedImportLCIssue.getImportLCIssueId();
+//				}
+//			}
+			if (transactionRefId != null && importLCIssueJson.getDeferredPaymentJson() != null) {
+				DeferredPayment deferredPayment = null;
+				if (importLCIssueJson.getDeferredPaymentJson().getDeferredPaymentId() != null) {
+					deferredPayment = (DeferredPayment) commonRepository.getObjectById(importLCIssueJson.getDeferredPaymentJson().getDeferredPaymentId(), DeferredPayment.class);
+				} else {
+					deferredPayment = new DeferredPayment();
+				}
+				TransformJsonToDomain.getDeferredPaymentByJson(deferredPayment, importLCIssueJson.getDeferredPaymentJson());
+				deferredPayment.setImportLCIssueId(transactionRefId);
+				if (importLCIssueJson.getDeferredPaymentJson().getDeferredPaymentId() != null) {
+					commonRepository.update(deferredPayment);
+				} else {
+					commonRepository.persist(deferredPayment);
+				}
 			}
-			importLCIssue = new ImportLCIssue();
-			TransformJsonToDomain.getImportLCIssueFromJson(importLCIssue, importLCIssueJson);
-			commonRepository.persist(importLCIssue);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
 		}
-		return true;
+		return transactionRefId;
 	}
 
 	public ImportLCIssueJson getPrimaryDetailsByTransactionId(String transactionNumber) {

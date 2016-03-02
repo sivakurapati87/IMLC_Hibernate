@@ -2,6 +2,7 @@
 	style="width: 100%; background-image: url('resources/images/bg.jpg'); background-repeat: no-repeat; background-size: cover;"
 	align="center">
 	<header-tab></header-tab>
+	<form ng-submit="saveOrUpdate()" name="form">
 	<table class="table tableBg" border="0" style="width: 70%;">
 		<tr style="height: 20px"></tr>
 		<tr>
@@ -47,12 +48,14 @@
 																local-data="bankJsonList" search-fields="bankId"
 																id="advisingBankId" initial-value="advisingBank"
 																title-field="bankId" minlength="2"
-																input-class="search-control" match-class="highlight"></div>
+																disable-input="isDisabled" input-class="search-control"
+																match-class="highlight"></div>
 
 														</div></td>
 													<td>
 														<button type="button" style="height: 34px; width: 40px;"
 															class="btn btn-info" data-toggle="modal"
+															ng-disabled="isDisabled"
 															ng-click="openAdvisingBankPopup('advising')">
 															<i class="glyphicon glyphicon-search"></i>
 														</button>
@@ -66,8 +69,7 @@
 										readonly="readonly"
 										class="form-control ng-pristine  ng-valid ng-valid-required width90"
 										type="text" required=""
-										ng-model="primary_Details_Obj.advisingBankName"
-										name="productId"></td>
+										ng-model="transactionData.advisingBankName" name="productId"></td>
 								</tr>
 								<tr style="height: 20px"></tr>
 								<tr>
@@ -83,7 +85,7 @@
 											readonly="readonly" style="resize: none;"
 											class="form-control ng-pristine  ng-valid ng-valid-required width90"
 											placeholder="Advising Bank Address"
-											ng-model="primary_Details_Obj.advisingBankAddress"></textarea></td>
+											ng-model="transactionData.advisingBankAddress"></textarea></td>
 								</tr>
 								<tr style="height: 20px"></tr>
 							</table>
@@ -120,7 +122,7 @@
 																placeholder="Advise Through Bank ID" pause="100"
 																selected-object="selectedAdvisingThroughIdAction"
 																local-data="bankJsonList" search-fields="bankId"
-																id="adviseThroughBankID"
+																id="adviseThroughBankID" disable-input="isDisabled"
 																initial-value="advisingThroughBank" title-field="bankId"
 																minlength="2" input-class="search-control"
 																match-class="highlight"></div>
@@ -129,6 +131,7 @@
 													<td>
 														<button type="button" style="height: 34px; width: 40px;"
 															class="btn btn-info" data-toggle="modal"
+															ng-disabled="isDisabled"
 															ng-click="openAdvisingBankPopup('advisingThrough')">
 															<i class="glyphicon glyphicon-search"></i>
 														</button>
@@ -142,7 +145,7 @@
 										placeholder="Advise Through Bank Name" readonly="readonly"
 										class="form-control ng-pristine  ng-valid ng-valid-required width90"
 										type="text" required=""
-										ng-model="primary_Details_Obj.adviseThroughBankName"
+										ng-model="transactionData.adviseThroughBankName"
 										name="productId"></td>
 								</tr>
 								<tr style="height: 20px"></tr>
@@ -159,7 +162,7 @@
 											readonly="readonly" style="resize: none;"
 											class="form-control ng-pristine  ng-valid ng-valid-required width90"
 											placeholder="Advise Through Bank Address"
-											ng-model="primary_Details_Obj.adviseThroughBankAddress"></textarea></td>
+											ng-model="transactionData.adviseThroughBankAddress"></textarea></td>
 								</tr>
 								<tr style="height: 20px"></tr>
 							</table>
@@ -195,7 +198,7 @@
 																placeholder="Reimbursement Bank ID" pause="100"
 																selected-object="selectedReimbursementBankIdAction"
 																local-data="bankJsonList" search-fields="bankId"
-																id="reimbursementBankID"
+																id="reimbursementBankID" disable-input="isDisabled"
 																initial-value="reimbursementBank" title-field="bankId"
 																minlength="2" input-class="search-control"
 																match-class="highlight"></div>
@@ -204,6 +207,7 @@
 													<td>
 														<button type="button" style="height: 34px; width: 40px;"
 															class="btn btn-info" data-toggle="modal"
+															ng-disabled="isDisabled"
 															ng-click="openAdvisingBankPopup('reimbursement')">
 															<i class="glyphicon glyphicon-search"></i>
 														</button>
@@ -217,7 +221,7 @@
 										placeholder="Reimbursement Bank Name" readonly="readonly"
 										class="form-control ng-pristine  ng-valid ng-valid-required width90"
 										type="text" required=""
-										ng-model="primary_Details_Obj.remibursementBankName"
+										ng-model="transactionData.remibursementBankName"
 										name="productId"></td>
 								</tr>
 								<tr style="height: 20px"></tr>
@@ -234,7 +238,7 @@
 											readonly="readonly" style="resize: none;"
 											class="form-control ng-pristine  ng-valid ng-valid-required width90"
 											placeholder="Reimbursement Bank Address"
-											ng-model="primary_Details_Obj.remibursementBankAddress"></textarea></td>
+											ng-model="transactionData.remibursementBankAddress"></textarea></td>
 								</tr>
 								<tr style="height: 20px"></tr>
 							</table>
@@ -271,12 +275,14 @@
 																local-data="bankJsonList" search-fields="bankId"
 																id="confirmingBankID" initial-value="confirmingBank"
 																title-field="bankId" minlength="2"
-																input-class="search-control" match-class="highlight"></div>
+																disable-input="isDisabled" input-class="search-control"
+																match-class="highlight"></div>
 
 														</div></td>
 													<td>
 														<button type="button" style="height: 34px; width: 40px;"
 															class="btn btn-info" data-toggle="modal"
+															ng-disabled="isDisabled"
 															ng-click="openAdvisingBankPopup('confirming')">
 															<i class="glyphicon glyphicon-search"></i>
 														</button>
@@ -290,8 +296,7 @@
 										placeholder="Confirming Bank Name" readonly="readonly"
 										class="form-control ng-pristine  ng-valid ng-valid-required width90"
 										type="text" required=""
-										ng-model="primary_Details_Obj.confirmingBankName"
-										name="productId"></td>
+										ng-model="transactionData.confirmingBankName" name="productId"></td>
 								</tr>
 								<tr style="height: 20px"></tr>
 							</table>
@@ -312,9 +317,9 @@
 									<td width="50%"><div class="input-group width90">
 											<label class="input-group-addon"><i
 												class="glyphicon glyphicon-asterisk "></i></label><select
+												ng-disabled="isDisabled"
 												class="form-control ng-pristine ng-valid ng-valid-required ng-touched"
-												required
-												ng-model="primary_Details_Obj.confirmingInstructions"
+												required ng-model="transactionData.confirming_Instructions"
 												ng-options="lookup.description as lookup.description for lookup in  lookupbean.confirmingInstructionsList">
 												<option value="" disabled selected>Confirming
 													Instructions</option>
@@ -330,14 +335,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4" align="right"
-							ng-hide="transactionData == undefined"><a ui-sref="document"
-							tooltip="Next"> <i class="fa fa-arrow-right fa-2x colorWhite"></i>
-						</a>
-					</tr>
+							<td colspan="4" align="right"
+								ng-hide="transactionData == undefined">
+								<button type="submit" class="btn btn-info fa fa-arrow-right fa-2x"
+									style="width: 90px; height: 34px;">
+								</button>
+						</tr>
 				</table></td>
 		</tr>
 	</table>
+	</form>
 </div>
 <button type="button" id="bankListPopup" class="btn btn-info btn-lg"
 	style="display: none;" data-toggle="modal"

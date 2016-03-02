@@ -71,7 +71,7 @@ public class CommonUtil {
 		try {
 			if (str != null && str.length() > 9) {
 				SimpleDateFormat dateformat = null;
-				String s1= null;
+				String s1 = null;
 				if (str.length() == 11) {
 					dateformat = new SimpleDateFormat("dd-MMM-yyyy");
 					s1 = str.subSequence(0, 11).toString();
@@ -79,7 +79,7 @@ public class CommonUtil {
 					dateformat = new SimpleDateFormat("yyyy-MM-dd");
 					s1 = str.subSequence(0, 10).toString();
 				}
-				
+
 				date = dateformat.parse(s1);
 				date = convertStringToDate(convertDateToString(date));
 			}
@@ -462,20 +462,20 @@ public class CommonUtil {
 		return isSubmitted;
 	}
 
-	public static Boolean submitPrimaryDetails(ImportLCIssueJson json) {
-		Boolean isSubmitted = Boolean.FALSE;
+	public static Integer submitPrimaryDetails(ImportLCIssueJson json) {
+		Integer transactionRefNumber = null;
 		try {
 			RestTemplate restTemplate = new RestTemplate();
 			HttpEntity<ImportLCIssueJson> httpEntity = new HttpEntity<ImportLCIssueJson>(json);
-			ParameterizedTypeReference<Boolean> typeRef = new ParameterizedTypeReference<Boolean>() {
+			ParameterizedTypeReference<Integer> typeRef = new ParameterizedTypeReference<Integer>() {
 			};
-			ResponseEntity<Boolean> result = restTemplate.exchange(Constants.PrimaryDetails.Submit, HttpMethod.POST, httpEntity, typeRef);
-			isSubmitted = result.getBody();
+			ResponseEntity<Integer> result = restTemplate.exchange(Constants.PrimaryDetails.Submit, HttpMethod.POST, httpEntity, typeRef);
+			transactionRefNumber = result.getBody();
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOG.error("Error at CommonUtil submitRegistrationPage():" + e.getMessage());
 		}
-		return isSubmitted;
+		return transactionRefNumber;
 	}
 
 	public static List<CountryJson> getAllCountries() {

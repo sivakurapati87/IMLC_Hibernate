@@ -26,9 +26,15 @@ public class PrimaryDetailController {
 
 	@RequestMapping(value = "/saveOrUpdatePrimaryDetails", method = RequestMethod.POST)
 	@ResponseBody
-	public Boolean saveOrUpdatePrimaryDetails(HttpServletRequest request, HttpServletResponse response, @RequestBody ImportLCIssueJson importLCIssueJson) {
+	public Integer saveOrUpdatePrimaryDetails(HttpServletRequest request, HttpServletResponse response, @RequestBody ImportLCIssueJson importLCIssueJson) {
 		if (importLCIssueJson != null && importLCIssueJson.getStrExpiry_Date() != null) {
 			importLCIssueJson.setExpiry_Date(TransformDomainToJson.convertDiffferentFormatString(importLCIssueJson.getStrExpiry_Date()));
+		}
+		if (importLCIssueJson != null && importLCIssueJson.getStrLatestShipmentDate() != null) {
+			importLCIssueJson.setLatestShipmentDate(TransformDomainToJson.convertDiffferentFormatString(importLCIssueJson.getStrLatestShipmentDate()));
+		}
+		if (importLCIssueJson != null && importLCIssueJson.getDeferredPaymentJson() != null && importLCIssueJson.getDeferredPaymentJson().getStrDate() != null) {
+			importLCIssueJson.getDeferredPaymentJson().setDate(TransformDomainToJson.convertDiffferentFormatString(importLCIssueJson.getDeferredPaymentJson().getStrDate()));
 		}
 		return primaryDetailService.saveOrUpdatePFInfo(importLCIssueJson);
 	}
@@ -48,7 +54,7 @@ public class PrimaryDetailController {
 	@RequestMapping(value = "/getAllPrimaryDetailsByCustomerOrBenificiaryId", method = RequestMethod.GET)
 	@ResponseBody
 	public List<ImportLCIssueJson> getAllPrimaryDetailsByCustomerOrBenificiaryId(@RequestParam("customerId") Long customerId, @RequestParam("benificiaryId") String benificiaryId, @RequestParam("statusId") Integer statusId) {
-		return primaryDetailService.getAllPrimaryDetailsByCustomerOrBenificiaryId(customerId, benificiaryId,statusId);
+		return primaryDetailService.getAllPrimaryDetailsByCustomerOrBenificiaryId(customerId, benificiaryId, statusId);
 	}
 
 	@RequestMapping(value = "/getAllPrimaryDetailsByStatusId/{statusId}", method = RequestMethod.GET)

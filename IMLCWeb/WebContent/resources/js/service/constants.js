@@ -16,11 +16,16 @@ Approve : 'Approve',
 Verify : 'Verify',
 Delete : 'Delete',
 Reject : 'Reject',
+Submit : 'Submit',
 
 Advising : 'advising',
 AdvisingThrough : 'advisingThrough',
 Reimbursement : 'reimbursement',
 confirming : 'confirming',
+
+Mixed : 'Mixed',
+Deferred : 'Deferred',
+SelectBank : 'Select Bank',
 
 Confirmed : 37,
 Incomplete : 38,

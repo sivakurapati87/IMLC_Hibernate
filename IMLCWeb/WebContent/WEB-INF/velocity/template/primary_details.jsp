@@ -50,12 +50,11 @@
 													placeholder="Transaction Number" readonly="readonly"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required=""
-													ng-model="primary_Details_Obj.transaction_Ref_number"
-													name="">
+													ng-model="transactionData.transaction_Ref_number" name="">
 											</div></td>
 										<td align="right"><div class="input-group width90">
 												<input disabled="disabled" type="text" class="form-control"
-													ng-model="primary_Details_Obj.strCreation_Date"
+													ng-model="transactionData.strCreation_Date"
 													datepicker-popup="dd-MMM-yyyy" is-open="Opened"
 													ng-click="Opened=true"> <span
 													class="input-group-btn">
@@ -78,7 +77,7 @@
 									<tr>
 										<td width="50%"><div class="input-group width90">
 												<input disabled="disabled" type="text" class="form-control"
-													ng-model="primary_Details_Obj.strIssue_Date"
+													ng-model="transactionData.strIssue_Date"
 													datepicker-popup="dd-MMM-yyyy" is-open="issueOpened"
 													ng-click="issueOpened=true"> <span
 													class="input-group-btn">
@@ -95,7 +94,7 @@
 											<div class="input-group width90">
 												<input type="text" class="form-control" required
 													ng-disabled="isDisabled"
-													ng-model="primary_Details_Obj.strExpiry_Date"
+													ng-model="transactionData.strExpiry_Date"
 													datepicker-popup="dd-MMM-yyyy" is-open="strExpiryOpened"
 													ng-click="strExpiryOpened=true"> <span
 													class="input-group-btn">
@@ -132,7 +131,7 @@
 													placeholder="Sub message type" readonly="readonly"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required=""
-													ng-model="primary_Details_Obj.sub_Msg_Type" name="">
+													ng-model="transactionData.sub_Msg_Type" name="">
 											</div></td>
 										<td align="right">
 
@@ -143,7 +142,7 @@
 															ng-readonly="isDisabled"
 															class="form-control ng-pristine  ng-valid ng-valid-required"
 															type="text" required="" ng-blur="onchangeProductId()"
-															ng-model="primary_Details_Obj.productID"></td>
+															ng-model="transactionData.productID"></td>
 														<td>
 															<button type="button" ng-disabled="isDisabled"
 																style="height: 34px; width: 40px; text-align: center;"
@@ -173,7 +172,7 @@
 													class="form-control ng-pristine ng-valid ng-valid-required ng-touched"
 													required ng-change="getGlobalParameterInfo()"
 													ng-disabled="isDisabled"
-													ng-model="primary_Details_Obj.type_of_LC"
+													ng-model="transactionData.type_of_LC"
 													ng-options="typeOfLC.description as typeOfLC.description for typeOfLC in  lookupbean.typeOfLCList">
 													<option value="" disabled selected>Type of LC</option>
 												</select>
@@ -236,7 +235,7 @@
 											type="text" required=""
 											ng-hide="tempImportLCObj.contingent_Liability !='Yes'"
 											ng-disabled="(tempImportLCObj.contingent_Liability !='Yes' || isDisabled) ? true : false"
-											ng-model="primary_Details_Obj.liabilityAccountsImportLC"
+											ng-model="transactionData.liabilityAccountsImportLC"
 											name="productId"></td>
 									</tr>
 									<tr style="height: 20px"></tr>
@@ -254,7 +253,7 @@
 											readonly="readonly"
 											class="form-control ng-pristine  ng-valid ng-valid-required width90"
 											type="text" required=""
-											ng-model="primary_Details_Obj.customerName" name="productId"></td>
+											ng-model="transactionData.customerName" name="productId"></td>
 										<td align="right">
 											<table class="width90" border="0">
 												<tr>
@@ -262,7 +261,7 @@
 														placeholder="Limit Available for utilization"
 														class="form-control ng-pristine  ng-valid ng-valid-required"
 														type="text" required="" readonly="readonly"
-														ng-model="primary_Details_Obj.limitAvailable_For_Utilization"
+														ng-model="transactionData.limitAvailable_For_Utilization"
 														name="productId"></td>
 													<td style="width: 4px"></td>
 													<td><label class="lable14">INR</label></td>
@@ -287,12 +286,12 @@
 												style="resize: none;"
 												class="form-control ng-pristine  ng-valid ng-valid-required width90"
 												placeholder="Customer Address" readonly="readonly"
-												ng-model="primary_Details_Obj.customerAddress"></textarea></td>
+												ng-model="transactionData.customerAddress"></textarea></td>
 										<td align="right" valign="top"><div
 												class="input-group width90">
 												<label class="input-group-addon" for="productId"> <i
 													class="glyphicon glyphicon-asterisk "></i></label><input
-													ng-model="primary_Details_Obj.purchase_Order_Number"
+													ng-model="transactionData.purchase_Order_Number"
 													placeholder="Contract/Agreement/Purchase Number"
 													required="" ng-disabled="isDisabled"
 													class="form-control ng-pristine  ng-valid ng-valid-required">
@@ -353,8 +352,7 @@
 											readonly="readonly"
 											class="form-control ng-pristine  ng-valid ng-valid-required width90"
 											type="text" required=""
-											ng-model="primary_Details_Obj.counterpartyName"
-											name="productId"></td>
+											ng-model="transactionData.counterpartyName" name="productId"></td>
 									</tr>
 									<tr style="height: 20px"></tr>
 									<tr>
@@ -370,7 +368,7 @@
 												readonly="readonly" style="resize: none;"
 												class="form-control ng-pristine  ng-valid ng-valid-required width90"
 												placeholder="Beneficiary Address"
-												ng-model="primary_Details_Obj.counterpartyAddress"></textarea></td>
+												ng-model="transactionData.counterpartyAddress"></textarea></td>
 									</tr>
 									<tr style="height: 20px"></tr>
 								</table>
@@ -392,14 +390,14 @@
 													<td width="25%" align="center"><select
 														ng-disabled="isDisabled"
 														class="form-control ng-pristine ng-valid ng-valid-required ng-touched width60"
-														required ng-model="primary_Details_Obj.lcAmountCurrency"
+														required ng-model="transactionData.lcAmountCurrency"
 														ng-change="checkLCAmount_With_LimitAvailableForUtil()"
 														ng-options="lcAmount.currencyCode as lcAmount.currencyCode for lcAmount in  lookupbean.lcAmountList">
 															<option value="" disabled selected></option>
 													</select></td>
 
 													<td width="25%"><input required="" valid-number
-														ng-model="primary_Details_Obj.lCAmount"
+														ng-model="transactionData.lCAmount"
 														ng-disabled="isDisabled"
 														ng-blur="checkLCAmount_With_LimitAvailableForUtil()"
 														class="form-control ng-pristine  ng-valid ng-valid-required width70"
@@ -428,7 +426,7 @@
 														placeholder="LC Amount in Domestic Currency"
 														class="form-control ng-pristine  ng-valid ng-valid-required"
 														type="text" readonly="readonly"
-														ng-model="primary_Details_Obj.lCAmount_Domestic_Currency"
+														ng-model="transactionData.lCAmount_Domestic_Currency"
 														name="productId"></td>
 													<td style="width: 4px"></td>
 													<td><label class="lable14">INR</label></td>
@@ -447,12 +445,12 @@
 													<td width="28%" align="right"><input valid-number
 														ng-disabled="isDisabled"
 														class="form-control ng-pristine  ng-valid ng-valid-required width70"
-														type="text" ng-model="primary_Details_Obj.tolerance_Min"
+														type="text" ng-model="transactionData.tolerance_Min"
 														name="productId"></td>
 													<td width="4%" class="lable22_Medium" align="center">/</td>
 													<td width="28%"><input valid-number
 														ng-disabled="isDisabled" ng-blur="isGreaterThanPrevious()"
-														ng-model="primary_Details_Obj.tolerance_Max"
+														ng-model="transactionData.tolerance_Max"
 														class="form-control ng-pristine  ng-valid ng-valid-required width70"
 														type="text" name="productId"></td>
 												</tr>
@@ -493,14 +491,14 @@
 													placeholder="City of Expiry" ng-disabled="isDisabled"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required="" valid-alphabet
-													ng-model="primary_Details_Obj.city_Of_Expiry" name="">
+													ng-model="transactionData.city_Of_Expiry" name="">
 											</div></td>
 										<td align="right"><div class="input-group width90">
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><select
 													class="form-control ng-pristine ng-valid ng-valid-required ng-touched"
-													ng-model="primary_Details_Obj.country_of_Expiry"
-													required="" ng-disabled="isDisabled"
+													ng-model="transactionData.country_of_Expiry" required=""
+													ng-disabled="isDisabled"
 													ng-options="liability.countryName as liability.countryName for liability in  lookupbean.countryList">
 													<option value="" disabled selected>Country of
 														Expiry</option>
@@ -521,7 +519,7 @@
 									<tr style="height: 20px"></tr>
 									<tr>
 										<td width="50%"><label class="lable14"
-											ng-hide="primary_Details_Obj.tolerance_Min"> Maximum
+											ng-hide="transactionData.tolerance_Min"> Maximum
 												Credit Amount</label></td>
 										<td align="right"><div class="input-group width90"
 												align="left">
@@ -530,16 +528,16 @@
 									</tr>
 									<tr>
 										<td width="50%"><div class="input-group width90"
-												ng-hide="primary_Details_Obj.tolerance_Min">
+												ng-hide="transactionData.tolerance_Min">
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
 													placeholder="Maximum Credit Amount" required=""
 													valid-number
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text"
-													ng-disabled="(primary_Details_Obj.tolerance_Min || isDisabled) ? true : false"
+													ng-disabled="(transactionData.tolerance_Min || isDisabled) ? true : false"
 													ng-blur="findRiskAmount()"
-													ng-model="primary_Details_Obj.max_Credit_Amount" name="">
+													ng-model="transactionData.max_Credit_Amount" name="">
 											</div></td>
 										<td align="right">
 											<table class="width90" border="0">
@@ -548,10 +546,9 @@
 														readonly="readonly"
 														class="form-control ng-pristine  ng-valid ng-valid-required"
 														type="text" required=""
-														ng-model="primary_Details_Obj.risk_Amount"
-														name="productId"></td>
+														ng-model="transactionData.risk_Amount" name="productId"></td>
 													<td style="width: 4px"></td>
-													<td><label class="lable14">{{primary_Details_Obj.lcAmountCurrency}}</label></td>
+													<td><label class="lable14">{{transactionData.lcAmountCurrency}}</label></td>
 												</tr>
 											</table>
 
@@ -573,7 +570,7 @@
 													class="glyphicon glyphicon-asterisk "></i></label><input
 													placeholder="Exchange Rate" readonly=""
 													class="form-control ng-pristine  ng-valid ng-valid-required"
-													type="text" ng-model="primary_Details_Obj.exchange_Rate"
+													type="text" ng-model="transactionData.exchange_Rate"
 													name="">
 											</div>
 
@@ -597,7 +594,7 @@
 												Rules</label></td>
 										<td align="right"><div class="input-group width90"
 												align="left"
-												ng-hide="primary_Details_Obj.applicable_Rules!='OTHER'">
+												ng-hide="transactionData.applicable_Rules!='OTHER'">
 												<label class="lable14">Confirming Instructions</label>
 											</div></td>
 									</tr>
@@ -607,22 +604,21 @@
 													class="glyphicon glyphicon-asterisk "></i></label><select
 													ng-disabled="isDisabled"
 													class="form-control ng-pristine ng-valid ng-valid-required ng-touched"
-													required ng-model="primary_Details_Obj.applicable_Rules"
+													required ng-model="transactionData.applicable_Rules"
 													ng-options="rule.description as rule.description for rule in  lookupbean.applicableRules">
 													<option value="" disabled selected>Applicable
 														Rules</option>
 												</select>
 											</div></td>
 										<td align="right"><div class="input-group width90"
-												ng-hide="primary_Details_Obj.applicable_Rules!='OTHER'">
+												ng-hide="transactionData.applicable_Rules!='OTHER'">
 												<label class="input-group-addon" for="productId"><i
 													class="glyphicon glyphicon-asterisk "></i></label><input
 													placeholder="If OTHER option is choosen in Applicable Rules, Narrative field to be given"
 													class="form-control ng-pristine  ng-valid ng-valid-required"
 													type="text" required=""
-													ng-disabled="(primary_Details_Obj.applicable_Rules!='OTHER' || isDisabled) ? true : false"
-													ng-model="primary_Details_Obj.confirming_Instructions"
-													name="">
+													ng-disabled="(transactionData.applicable_Rules!='OTHER' || isDisabled) ? true : false"
+													ng-model="transactionData.confirming_Instructions" name="">
 											</div></td>
 									</tr>
 
@@ -646,7 +642,7 @@
 										<td colspan="2"><textarea rows="5" cols=""
 												style="resize: none;"
 												class="form-control ng-pristine  ng-valid ng-valid-required width90"
-												placeholder="Remarks" ng-model="primary_Details_Obj.remarks"></textarea>
+												placeholder="Remarks" ng-model="transactionData.remarks"></textarea>
 
 										</td>
 									</tr>
@@ -657,7 +653,7 @@
 							</td>
 						</tr>
 
-						<tr
+						<!-- <tr
 							ng-show="(isVerifyBlockDisplay || isApproveBlockDisplay || isDeletedBlockDisplay || isViewMode) ? false : true">
 							<td colspan="4" align="center">
 								<table style="width: 24%" border="0">
@@ -718,11 +714,13 @@
 								<button type="button" class="btn btn-info width86"
 									style="width: 90px; height: 34px;"
 									ng-click="submitStatusCodeAction('Delete')">Delete</button>
-						</tr>
+						</tr> -->
 						<tr>
-							<td colspan="4" align="right" ng-hide="transactionData == undefined"><a ui-sref="advising_bank" tooltip="Next">
-									<i class="fa fa-arrow-right fa-2x colorWhite"></i>
-							</a>
+							<td colspan="4" align="right"
+								ng-hide="transactionData == undefined">
+								<button type="submit" class="btn btn-info fa fa-arrow-right fa-2x"
+									style="width: 90px; height: 34px;">
+								</button>
 						</tr>
 
 					</table></td>

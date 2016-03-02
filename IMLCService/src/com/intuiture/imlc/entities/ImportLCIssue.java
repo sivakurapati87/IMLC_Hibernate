@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -80,6 +81,28 @@ public class ImportLCIssue {
 	private String placeofTakingCharge;
 	private String instructionsNegotitatingBank;
 
+	private String tenorType;
+	private Double tenorTypeUsance;
+	private Double tenorTypeSight;
+	private String usnaceFrom;
+	private String mixedPaymentDetails;
+	// private Integer deferredPayment;
+	private String availableWithBank;
+	private String availableWithBankID;
+	private String availableWithBankName;
+	private String availableWithBankAddress;
+	private String availableWithBankBy;
+	private String draftAt;
+	private Double interestRate;
+
+	private String marginType;
+	private String debitAccountNum;
+	private String creditAccountNum;
+	private Integer marginPerCent;
+	private Double marginAmt;
+	private Double availableMargin;
+	private Double netMargin;
+
 	@ManyToOne
 	@JoinColumn(name = "statusId", insertable = false, updatable = false)
 	private LookUpDetails status;
@@ -89,6 +112,176 @@ public class ImportLCIssue {
 	@ManyToOne
 	@JoinColumn(name = "counterpartyId", insertable = false, updatable = false)
 	private Counterparty counterparty;
+	@OneToOne(mappedBy = "importLCIssue")
+	private DeferredPayment deferredPayment;
+
+	public DeferredPayment getDeferredPayment() {
+		return deferredPayment;
+	}
+
+	public void setDeferredPayment(DeferredPayment deferredPayment) {
+		this.deferredPayment = deferredPayment;
+	}
+
+	public String getMarginType() {
+		return marginType;
+	}
+
+	public void setMarginType(String marginType) {
+		this.marginType = marginType;
+	}
+
+	public String getDebitAccountNum() {
+		return debitAccountNum;
+	}
+
+	public void setDebitAccountNum(String debitAccountNum) {
+		this.debitAccountNum = debitAccountNum;
+	}
+
+	public String getCreditAccountNum() {
+		return creditAccountNum;
+	}
+
+	public void setCreditAccountNum(String creditAccountNum) {
+		this.creditAccountNum = creditAccountNum;
+	}
+
+	public Integer getMarginPerCent() {
+		return marginPerCent;
+	}
+
+	public void setMarginPerCent(Integer marginPerCent) {
+		this.marginPerCent = marginPerCent;
+	}
+
+	public Double getMarginAmt() {
+		return marginAmt;
+	}
+
+	public void setMarginAmt(Double marginAmt) {
+		this.marginAmt = marginAmt;
+	}
+
+	public Double getAvailableMargin() {
+		return availableMargin;
+	}
+
+	public void setAvailableMargin(Double availableMargin) {
+		this.availableMargin = availableMargin;
+	}
+
+	public Double getNetMargin() {
+		return netMargin;
+	}
+
+	public void setNetMargin(Double netMargin) {
+		this.netMargin = netMargin;
+	}
+
+	public String getTenorType() {
+		return tenorType;
+	}
+
+	public void setTenorType(String tenorType) {
+		this.tenorType = tenorType;
+	}
+
+	public Double getTenorTypeUsance() {
+		return tenorTypeUsance;
+	}
+
+	public void setTenorTypeUsance(Double tenorTypeUsance) {
+		this.tenorTypeUsance = tenorTypeUsance;
+	}
+
+	public Double getTenorTypeSight() {
+		return tenorTypeSight;
+	}
+
+	public void setTenorTypeSight(Double tenorTypeSight) {
+		this.tenorTypeSight = tenorTypeSight;
+	}
+
+	public String getUsnaceFrom() {
+		return usnaceFrom;
+	}
+
+	public void setUsnaceFrom(String usnaceFrom) {
+		this.usnaceFrom = usnaceFrom;
+	}
+
+	public String getMixedPaymentDetails() {
+		return mixedPaymentDetails;
+	}
+
+	public void setMixedPaymentDetails(String mixedPaymentDetails) {
+		this.mixedPaymentDetails = mixedPaymentDetails;
+	}
+
+	// public Integer getDeferredPayment() {
+	// return deferredPayment;
+	// }
+	//
+	// public void setDeferredPayment(Integer deferredPayment) {
+	// this.deferredPayment = deferredPayment;
+	// }
+
+	public String getAvailableWithBank() {
+		return availableWithBank;
+	}
+
+	public void setAvailableWithBank(String availableWithBank) {
+		this.availableWithBank = availableWithBank;
+	}
+
+	public String getAvailableWithBankID() {
+		return availableWithBankID;
+	}
+
+	public void setAvailableWithBankID(String availableWithBankID) {
+		this.availableWithBankID = availableWithBankID;
+	}
+
+	public String getAvailableWithBankName() {
+		return availableWithBankName;
+	}
+
+	public void setAvailableWithBankName(String availableWithBankName) {
+		this.availableWithBankName = availableWithBankName;
+	}
+
+	public String getAvailableWithBankAddress() {
+		return availableWithBankAddress;
+	}
+
+	public void setAvailableWithBankAddress(String availableWithBankAddress) {
+		this.availableWithBankAddress = availableWithBankAddress;
+	}
+
+	public String getAvailableWithBankBy() {
+		return availableWithBankBy;
+	}
+
+	public void setAvailableWithBankBy(String availableWithBankBy) {
+		this.availableWithBankBy = availableWithBankBy;
+	}
+
+	public String getDraftAt() {
+		return draftAt;
+	}
+
+	public void setDraftAt(String draftAt) {
+		this.draftAt = draftAt;
+	}
+
+	public Double getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(Double interestRate) {
+		this.interestRate = interestRate;
+	}
 
 	public Date getLatestShipmentDate() {
 		return latestShipmentDate;

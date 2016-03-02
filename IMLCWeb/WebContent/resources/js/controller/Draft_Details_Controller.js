@@ -1,6 +1,6 @@
 'use strict';
 
-App.controller('Draft_Details_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout', function($cookies,$http,$scope,$rootScope,$location,$timeout) {
+App.controller('Draft_Details_Controller', ['$cookies','$http','$scope','$rootScope','$location','$timeout','$state', function($cookies,$http,$scope,$rootScope,$location,$timeout,$state) {
 	
 	$scope.quantity = 10;//limiting the displaying records in the popup
 	//Disabling the back button
@@ -13,8 +13,9 @@ App.controller('Draft_Details_Controller', ['$cookies','$http','$scope','$rootSc
 	
 	//state of the page
 	$scope.state_info_name = "draft_details";
-//	$scope.primary_Details_Obj = {};
-	$scope.primary_Details_Obj = $rootScope.transactionData;
+//	$rootScope.transactionData = {};
+	$rootScope.transactionData.interestRate = $rootScope.tempImportLCObj.overdue_Intereset;
+//	$rootScope.transactionData = $rootScope.transactionData;
 	//For loading symbol
 	 	$scope.loader = {
 		      loading: false,
@@ -27,113 +28,61 @@ App.controller('Draft_Details_Controller', ['$cookies','$http','$scope','$rootSc
 	        $scope.loader.loading = false ;
 	    }
 	    
-	    //This function is to get the selected advising bank from auto population
-        $scope.selectedAdvisingIdAction = function(selected) {
-            if (selected && selected.title) {
-          	  $scope.primary_Details_Obj.advisingBankId = selected.title;
-          	  $scope.getBankJsonById($scope.primary_Details_Obj.advisingBankId);
-          	$scope.primary_Details_Obj.advisingBankName = $scope.tempBankJson.bankName;
-          	$scope.primary_Details_Obj.advisingBankAddress = $scope.tempBankJson.bankAddress;
-            } else {
-              console.log('cleared');
-            }
-          };
           
-          //This function is to get the selected advising Through bank from auto population
-          $scope.selectedAdvisingThroughIdAction = function(selected) {
+          //This function is to get the selected available bank from auto population
+          $scope.selectedAvailableBankIdAction = function(selected) {
               if (selected && selected.title) {
-            	  $scope.primary_Details_Obj.adviseThroughBankID = selected.title;
-            	  $scope.getBankJsonById($scope.primary_Details_Obj.adviseThroughBankID);
-            	$scope.primary_Details_Obj.adviseThroughBankName = $scope.tempBankJson.bankName;
-            	$scope.primary_Details_Obj.adviseThroughBankAddress = $scope.tempBankJson.bankAddress;
+            	  $rootScope.transactionData.availableWithBankID = selected.title;
+            	  $scope.getAvailableBankDetails(selected.title);
+            	  $rootScope.transactionData.availableWithBankName = $scope.tempBankJson.bankName;
+            	$rootScope.transactionData.availableWithBankAddress = $scope.tempBankJson.bankAddress;
               } else {
                 console.log('cleared');
               }
             };
             
-            //This function is to get the selected Reimbursement bank from auto population
-            $scope.selectedReimbursementBankIdAction = function(selected) {
-                if (selected && selected.title) {
-              	  $scope.primary_Details_Obj.reimbursementBankID = selected.title;
-              	  $scope.getBankJsonById($scope.primary_Details_Obj.reimbursementBankID);
-              	$scope.primary_Details_Obj.remibursementBankName = $scope.tempBankJson.bankName;
-              	$scope.primary_Details_Obj.remibursementBankAddress = $scope.tempBankJson.bankAddress;
-                } else {
-                  console.log('cleared');
-                }
-              };
-              //This function is to get the selected Reimbursement bank from auto population
-              $scope.selectedConfirmingBankIdAction = function(selected) {
-                  if (selected && selected.title) {
-                	  $scope.primary_Details_Obj.confirmingBankdID = selected.title;
-                	  $scope.getBankJsonById($scope.primary_Details_Obj.confirmingBankdID);
-                	$scope.primary_Details_Obj.confirmingBankName = $scope.tempBankJson.bankName;
-                  } else {
-                    console.log('cleared');
-                  }
-                };
-                
-	    $scope.openAdvisingBankPopup = function(popupName){
-	    	$scope.popupName = popupName;//To know the type of popup
-	    	  angular.element('#bankListPopup').trigger('click');
-	    };
-                
-          //onSelect bank from the bank table in the popup
-          $scope.onselectBankId = function(bank) {
-        	  $('#bankListPopupId').modal('hide');
-        	  if($scope.popupName == constants.Advising){
-        		  $scope.primary_Details_Obj.advisingBankId = bank.bankId;
-        		  $scope.advisingBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'advisingBankId', $scope.advisingBank);
-        			$scope.primary_Details_Obj.advisingBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.advisingBankAddress = bank.bankAddress;
-        	  }
-        	  if($scope.popupName == constants.AdvisingThrough){
-        		  $scope.primary_Details_Obj.adviseThroughBankID = bank.bankId;
-        		  $scope.advisingThroughBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'adviseThroughBankID', $scope.advisingThroughBank);
-        			$scope.primary_Details_Obj.adviseThroughBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.adviseThroughBankAddress = bank.bankAddress;
-        	  }
-        	  if($scope.popupName == constants.Reimbursement){
-        		  $scope.primary_Details_Obj.reimbursementBankID = bank.bankId;
-        		  $scope.reimbursementBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'reimbursementBankId', $scope.reimbursementBank);
-        			$scope.primary_Details_Obj.remibursementBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.remibursementBankAddress = bank.bankAddress;
-        	  }
-        	  if($scope.popupName == constants.confirming){
-        		  $scope.primary_Details_Obj.confirmingBankdID = bank.bankId;
-        		  $scope.confirmingBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'confirmingBankID', $scope.confirmingBank);
-        			$scope.primary_Details_Obj.confirmingBankName = bank.bankName;
-        	  }
-            	  
-          };
-          
-          //This is to get the bank details
-          $scope.getBankJsonById = function(id) {
-        		  angular.forEach($scope.bankJsonList, function(obj, key)
-        				  {
+          //This is to get the Bank details
+            $scope.getAvailableBankDetails = function(id) {
+            	angular.forEach($rootScope.bankJsonList, function(obj, key)
+      				  {
 		           	   		if(obj.bankId == id)
 		           	   			{
 		           	   			$scope.tempBankJson = obj;
 		           	   			}
 		           	     });
+            };
+                
+          //onSelect bank from the bank table in the popup
+          $scope.onselectAvailableBankId = function(bank) {
+        	  $('#bankListPopupId').modal('hide');
+        		  $rootScope.transactionData.availableWithBankID = bank.bankId;
+        		  $scope.availableBank = bank;
+        		  $scope.$broadcast('angucomplete-alt:changeInput', 'availableBankId', $scope.availableBank);
+        			$rootScope.transactionData.availableWithBankName = bank.bankName;
+                  	$rootScope.transactionData.availableWithBankAddress = bank.bankAddress;
           };
           
-          
-	// getting the all banks          
-	          $scope.getAllBanks = function() {
-	        	  $scope.showloader();
-	              $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.BankController+'/getAllBanks').success(function(data){
-	            	  $scope.bankJsonList  = data;//getting all lookups
-	            	    $scope.hideloader();
-	              });
-	          };
-	          
-	      	
-	          $scope.getAllBanks();
+          //onchange tenor type value
+          $scope.onChangeTenorType = function(){
+        	  if($rootScope.transactionData.tenorType == constants.Deferred){
+        		  angular.element('#deferredPopupBtnId').trigger('click');
+        	  }
+          };
 			
+          //Save the record     
+          $scope.saveOrUpdate = function() {
+        	  $state.go('margin_details');
+          };
+          
+          //init function to populate the auto populated things
+          $scope.init = function(){
+        	  if($rootScope.transactionData.availableWithBankID){
+        		  $scope.getAvailableBankDetails($rootScope.transactionData.availableWithBankID);
+        		  $scope.availableBank = $scope.tempBankJson;
+        		  $scope.$broadcast('angucomplete-alt:changeInput', 'availableBankId', $scope.tempBankJson);
+        	  }
+          };
+          
+          $scope.init();
 	}]);
 

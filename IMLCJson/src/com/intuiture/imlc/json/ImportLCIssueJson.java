@@ -49,14 +49,12 @@ public class ImportLCIssueJson {
 	private String reimbursementBankID;
 	private String remibursementBankName;
 	private String remibursementBankAddress;
-	private String confirmingInstructions;
 	private String confirmingBankdID;
 	private String confirmingBankName;
 	private String documentId;
 	private String documentName;
 	private String documentDescription;
-	
-	
+
 	private Date latestShipmentDate;
 	private String strLatestShipmentDate;
 	private String goodsCode;
@@ -76,12 +74,189 @@ public class ImportLCIssueJson {
 	private String placeofTakingCharge;
 	private String instructionsNegotitatingBank;
 
-	public Date getLatestShipmentDate() {
-		return latestShipmentDate;
+	private String tenorType;
+	private Double tenorTypeUsance;
+	private Double tenorTypeSight;
+	private String usnaceFrom;
+	private String mixedPaymentDetails;
+	private String deferredPayment;
+	private String availableWithBank;
+	private String availableWithBankID;
+	private String availableWithBankName;
+	private String availableWithBankAddress;
+	private String availableWithBankBy;
+	private String draftAt;
+	private Double interestRate;
+
+	private String marginType;
+	private String debitAccountNum;
+	private String creditAccountNum;
+	private Integer marginPerCent;
+	private Double marginAmt;
+	private Double availableMargin;
+	private Double netMargin;
+
+	private Boolean isFinalSubmit = false;
+	private DeferredPaymentJson deferredPaymentJson;
+
+	public String getMarginType() {
+		return marginType;
 	}
 
-	public void setLatestShipmentDate(Date latestShipmentDate) {
-		this.latestShipmentDate = latestShipmentDate;
+	public void setMarginType(String marginType) {
+		this.marginType = marginType;
+	}
+
+	public String getDebitAccountNum() {
+		return debitAccountNum;
+	}
+
+	public void setDebitAccountNum(String debitAccountNum) {
+		this.debitAccountNum = debitAccountNum;
+	}
+
+	public String getCreditAccountNum() {
+		return creditAccountNum;
+	}
+
+	public void setCreditAccountNum(String creditAccountNum) {
+		this.creditAccountNum = creditAccountNum;
+	}
+
+	public Integer getMarginPerCent() {
+		return marginPerCent;
+	}
+
+	public void setMarginPerCent(Integer marginPerCent) {
+		this.marginPerCent = marginPerCent;
+	}
+
+	public Double getMarginAmt() {
+		return marginAmt;
+	}
+
+	public void setMarginAmt(Double marginAmt) {
+		this.marginAmt = marginAmt;
+	}
+
+	public Double getAvailableMargin() {
+		return availableMargin;
+	}
+
+	public void setAvailableMargin(Double availableMargin) {
+		this.availableMargin = availableMargin;
+	}
+
+	public Double getNetMargin() {
+		return netMargin;
+	}
+
+	public void setNetMargin(Double netMargin) {
+		this.netMargin = netMargin;
+	}
+
+	public String getTenorType() {
+		return tenorType;
+	}
+
+	public void setTenorType(String tenorType) {
+		this.tenorType = tenorType;
+	}
+
+	public Double getTenorTypeUsance() {
+		return tenorTypeUsance;
+	}
+
+	public void setTenorTypeUsance(Double tenorTypeUsance) {
+		this.tenorTypeUsance = tenorTypeUsance;
+	}
+
+	public Double getTenorTypeSight() {
+		return tenorTypeSight;
+	}
+
+	public void setTenorTypeSight(Double tenorTypeSight) {
+		this.tenorTypeSight = tenorTypeSight;
+	}
+
+	public String getUsnaceFrom() {
+		return usnaceFrom;
+	}
+
+	public void setUsnaceFrom(String usnaceFrom) {
+		this.usnaceFrom = usnaceFrom;
+	}
+
+	public String getMixedPaymentDetails() {
+		return mixedPaymentDetails;
+	}
+
+	public void setMixedPaymentDetails(String mixedPaymentDetails) {
+		this.mixedPaymentDetails = mixedPaymentDetails;
+	}
+
+	public String getDeferredPayment() {
+		return deferredPayment;
+	}
+
+	public void setDeferredPayment(String deferredPayment) {
+		this.deferredPayment = deferredPayment;
+	}
+
+	public String getAvailableWithBank() {
+		return availableWithBank;
+	}
+
+	public void setAvailableWithBank(String availableWithBank) {
+		this.availableWithBank = availableWithBank;
+	}
+
+	public String getAvailableWithBankID() {
+		return availableWithBankID;
+	}
+
+	public void setAvailableWithBankID(String availableWithBankID) {
+		this.availableWithBankID = availableWithBankID;
+	}
+
+	public String getAvailableWithBankName() {
+		return availableWithBankName;
+	}
+
+	public void setAvailableWithBankName(String availableWithBankName) {
+		this.availableWithBankName = availableWithBankName;
+	}
+
+	public String getAvailableWithBankAddress() {
+		return availableWithBankAddress;
+	}
+
+	public void setAvailableWithBankAddress(String availableWithBankAddress) {
+		this.availableWithBankAddress = availableWithBankAddress;
+	}
+
+	public String getAvailableWithBankBy() {
+		return availableWithBankBy;
+	}
+
+	public void setAvailableWithBankBy(String availableWithBankBy) {
+		this.availableWithBankBy = availableWithBankBy;
+	}
+
+	public String getDraftAt() {
+		return draftAt;
+	}
+
+	public void setDraftAt(String draftAt) {
+		this.draftAt = draftAt;
+	}
+
+	public Double getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(Double interestRate) {
+		this.interestRate = interestRate;
 	}
 
 	public String getStrLatestShipmentDate() {
@@ -314,14 +489,6 @@ public class ImportLCIssueJson {
 
 	public void setRemibursementBankAddress(String remibursementBankAddress) {
 		this.remibursementBankAddress = remibursementBankAddress;
-	}
-
-	public String getConfirmingInstructions() {
-		return confirmingInstructions;
-	}
-
-	public void setConfirmingInstructions(String confirmingInstructions) {
-		this.confirmingInstructions = confirmingInstructions;
 	}
 
 	public String getConfirmingBankdID() {
@@ -634,6 +801,30 @@ public class ImportLCIssueJson {
 
 	public void setLimitAvailable_For_Utilization(Long limitAvailable_For_Utilization) {
 		this.limitAvailable_For_Utilization = limitAvailable_For_Utilization;
+	}
+
+	public DeferredPaymentJson getDeferredPaymentJson() {
+		return deferredPaymentJson;
+	}
+
+	public void setDeferredPaymentJson(DeferredPaymentJson deferredPaymentJson) {
+		this.deferredPaymentJson = deferredPaymentJson;
+	}
+
+	public Date getLatestShipmentDate() {
+		return latestShipmentDate;
+	}
+
+	public void setLatestShipmentDate(Date latestShipmentDate) {
+		this.latestShipmentDate = latestShipmentDate;
+	}
+
+	public Boolean getIsFinalSubmit() {
+		return isFinalSubmit;
+	}
+
+	public void setIsFinalSubmit(Boolean isFinalSubmit) {
+		this.isFinalSubmit = isFinalSubmit;
 	}
 
 }

@@ -13,8 +13,8 @@ App.controller('Margin_Details_Controller', ['$cookies','$http','$scope','$rootS
 	
 	//state of the page
 	$scope.state_info_name = "margin_details";
-//	$scope.primary_Details_Obj = {};
-	$scope.primary_Details_Obj = $rootScope.transactionData;
+//	$rootScope.transactionData = {};
+//	$rootScope.transactionData = $rootScope.transactionData;
 	//For loading symbol
 	 	$scope.loader = {
 		      loading: false,
@@ -27,113 +27,68 @@ App.controller('Margin_Details_Controller', ['$cookies','$http','$scope','$rootS
 	        $scope.loader.loading = false ;
 	    }
 	    
-	    //This function is to get the selected advising bank from auto population
-        $scope.selectedAdvisingIdAction = function(selected) {
-            if (selected && selected.title) {
-          	  $scope.primary_Details_Obj.advisingBankId = selected.title;
-          	  $scope.getBankJsonById($scope.primary_Details_Obj.advisingBankId);
-          	$scope.primary_Details_Obj.advisingBankName = $scope.tempBankJson.bankName;
-          	$scope.primary_Details_Obj.advisingBankAddress = $scope.tempBankJson.bankAddress;
-            } else {
-              console.log('cleared');
-            }
-          };
-          
-          //This function is to get the selected advising Through bank from auto population
-          $scope.selectedAdvisingThroughIdAction = function(selected) {
-              if (selected && selected.title) {
-            	  $scope.primary_Details_Obj.adviseThroughBankID = selected.title;
-            	  $scope.getBankJsonById($scope.primary_Details_Obj.adviseThroughBankID);
-            	$scope.primary_Details_Obj.adviseThroughBankName = $scope.tempBankJson.bankName;
-            	$scope.primary_Details_Obj.adviseThroughBankAddress = $scope.tempBankJson.bankAddress;
-              } else {
-                console.log('cleared');
-              }
-            };
-            
-            //This function is to get the selected Reimbursement bank from auto population
-            $scope.selectedReimbursementBankIdAction = function(selected) {
-                if (selected && selected.title) {
-              	  $scope.primary_Details_Obj.reimbursementBankID = selected.title;
-              	  $scope.getBankJsonById($scope.primary_Details_Obj.reimbursementBankID);
-              	$scope.primary_Details_Obj.remibursementBankName = $scope.tempBankJson.bankName;
-              	$scope.primary_Details_Obj.remibursementBankAddress = $scope.tempBankJson.bankAddress;
-                } else {
-                  console.log('cleared');
-                }
-              };
-              //This function is to get the selected Reimbursement bank from auto population
-              $scope.selectedConfirmingBankIdAction = function(selected) {
-                  if (selected && selected.title) {
-                	  $scope.primary_Details_Obj.confirmingBankdID = selected.title;
-                	  $scope.getBankJsonById($scope.primary_Details_Obj.confirmingBankdID);
-                	$scope.primary_Details_Obj.confirmingBankName = $scope.tempBankJson.bankName;
-                  } else {
-                    console.log('cleared');
-                  }
-                };
-                
-	    $scope.openAdvisingBankPopup = function(popupName){
-	    	$scope.popupName = popupName;//To know the type of popup
-	    	  angular.element('#bankListPopup').trigger('click');
-	    };
-                
-          //onSelect bank from the bank table in the popup
-          $scope.onselectBankId = function(bank) {
-        	  $('#bankListPopupId').modal('hide');
-        	  if($scope.popupName == constants.Advising){
-        		  $scope.primary_Details_Obj.advisingBankId = bank.bankId;
-        		  $scope.advisingBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'advisingBankId', $scope.advisingBank);
-        			$scope.primary_Details_Obj.advisingBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.advisingBankAddress = bank.bankAddress;
-        	  }
-        	  if($scope.popupName == constants.AdvisingThrough){
-        		  $scope.primary_Details_Obj.adviseThroughBankID = bank.bankId;
-        		  $scope.advisingThroughBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'adviseThroughBankID', $scope.advisingThroughBank);
-        			$scope.primary_Details_Obj.adviseThroughBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.adviseThroughBankAddress = bank.bankAddress;
-        	  }
-        	  if($scope.popupName == constants.Reimbursement){
-        		  $scope.primary_Details_Obj.reimbursementBankID = bank.bankId;
-        		  $scope.reimbursementBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'reimbursementBankId', $scope.reimbursementBank);
-        			$scope.primary_Details_Obj.remibursementBankName = bank.bankName;
-                  	$scope.primary_Details_Obj.remibursementBankAddress = bank.bankAddress;
-        	  }
-        	  if($scope.popupName == constants.confirming){
-        		  $scope.primary_Details_Obj.confirmingBankdID = bank.bankId;
-        		  $scope.confirmingBank = bank;
-        		  $scope.$broadcast('angucomplete-alt:changeInput', 'confirmingBankID', $scope.confirmingBank);
-        			$scope.primary_Details_Obj.confirmingBankName = bank.bankName;
-        	  }
-            	  
-          };
-          
-          //This is to get the bank details
-          $scope.getBankJsonById = function(id) {
-        		  angular.forEach($scope.bankJsonList, function(obj, key)
-        				  {
-		           	   		if(obj.bankId == id)
-		           	   			{
-		           	   			$scope.tempBankJson = obj;
-		           	   			}
-		           	     });
-          };
-          
-          
-	// getting the all banks          
-	          $scope.getAllBanks = function() {
-	        	  $scope.showloader();
-	              $http.get(constants.localhost_port+"/"+constants.service_context+'/'+constants.BankController+'/getAllBanks').success(function(data){
-	            	  $scope.bankJsonList  = data;//getting all lookups
-	            	    $scope.hideloader();
-	              });
-	          };
-	          
-	      	
-	          $scope.getAllBanks();
-			
+	  //Save the record     
+        $scope.saveOrUpdate = function() {
+        	if($rootScope.transactionData.strLatestShipmentDate){
+        		$rootScope.transactionData.strLatestShipmentDate=$scope.formatteddate($rootScope.transactionData.strLatestShipmentDate);
+      	  	}
+        	if($rootScope.transactionData.strLatestShipmentDate){
+        		$rootScope.transactionData.strLatestShipmentDate=$scope.formatteddate($rootScope.transactionData.strLatestShipmentDate);
+      	  	}
+        	if($rootScope.transactionData.deferredPaymentJson && $rootScope.transactionData.deferredPaymentJson.strDate){
+        		$rootScope.transactionData.deferredPaymentJson.strDate = $scope.formatteddate($rootScope.transactionData.deferredPaymentJson.strDate);
+        	}
+        	$rootScope.transactionData.isFinalSubmit = true;
+            $http.post(constants.localhost_port+"/"+constants.web_context+'/PrimaryDetailController/submit', $rootScope.transactionData).success(function(data) {
+          	  if(data){
+	            		$rootScope.transactionData={};
+	            		$rootScope.isDisabled = false;
+	        			$rootScope.isVerifyBlockDisplay = false;
+	        			$rootScope.isApproveBlockDisplay = false;
+	        			$rootScope.isDeletedBlockDisplay = false;
+	        			$rootScope.isViewMode = false;
+	            		$scope.$broadcast('angucomplete-alt:clearInput');
+	            	 
+          	  }else{
+          		  //This is to display the error message
+          		  $scope.error="Expiry Date should be greater than Issue Date";
+          		  angular.element('#erroPopupId').trigger('click');
+          	  }
+            }).error(function() {
+          	  console.error('Could not save or update pf');
+            });
+        };
+        
+        //This is the function to get the formatted date
+        $scope.formatteddate = function(requiredDate){
+      	  var expDate = new Date(requiredDate);
+      	 var month = '' + (expDate.getMonth() + 1);
+           var day = '' + expDate.getDate();
+          var  year = expDate.getFullYear();
+      	  if (month.length < 2) month = '0' + month;
+      	    if (day.length < 2) day = '0' + day;
+      	    return [year, month, day].join('-');
+        };
+        
+      //This function is to submit status code
+      	$scope.submitStatusCodeAction = function(statuscode){
+      		if(statuscode == constants.Verify){
+      			$rootScope.transactionData.statusId = constants.Verified;
+      		}
+      		if(statuscode == constants.Reject){
+      			$rootScope.transactionData.statusId = constants.Rejected;
+      		}
+      		if(statuscode == constants.Approve){
+      			$rootScope.transactionData.statusId = constants.Approved;
+      		}
+      		if(statuscode == constants.Delete){
+      			$rootScope.transactionData.statusId = constants.Deleted;
+      		}
+      		if(statuscode == constants.Submit){
+      			$rootScope.transactionData.statusId = constants.Confirmed;
+      		}
+      		
+      		$scope.saveOrUpdate();
+      	};
 	}]);
 
